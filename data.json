@@ -1,7 +1,7 @@
 {
   "hero": {
     "name": "Alejandro Piad Morffis",
-    "avatarUrl": "https://avatars.githubusercontent.com/u/1778204?v=4",
+    "avatarUrl": "./avatar.jpg",
     "bootComment": "# apiad.net · v4.2 — made with ai in havana, cuba",
     "whoami": "alejandro piad morffis — computer scientist, educator, neurosymbolic-ai researcher.",
     "unameHtml": "apiad <span class=\"muted\">5.18.0-havana-cu</span> <span class=\"green\">#1 SMP</span> <span class=\"amber\">PhD CS · tenured · univ. of havana</span>",
@@ -23,7 +23,7 @@
     "updatedLabel": "apr '26",
     "items": [
       {
-        "headlineHtml": "Writing a book on neurosymbolic methods.",
+        "headlineHtml": "Writing a book on AI.",
         "bodyHtml": "Draft one is at ~60%; trying to keep it shorter than my PhD thesis."
       },
       {
@@ -31,12 +31,12 @@
         "bodyHtml": "A multi-modal embedded DB and a Python context-engineering toolkit — both open source."
       },
       {
-        "headlineHtml": "Teaching a graduate course on LLM reasoning.",
-        "bodyHtml": "UH, spring '26. Syllabus draws heavily from neurosymbolic + classical AI."
+        "headlineHtml": "Teaching undergrad courses on Compilers and Programming Languages.",
+        "bodyHtml": "UH, spring '26. Syllabus draws heavily from classics."
       },
       {
         "headlineHtml": "Growing GIA-UH.",
-        "bodyHtml": "Onboarding three new master's students working on Spanish-language NLP for low-resource settings."
+        "bodyHtml": "Onboarding new master's students working on Spanish-language NLP for low-resource settings."
       },
       {
         "headlineHtml": "Reading: <em>The Society of Mind</em> + recent CoT-reasoning papers.",
@@ -189,8 +189,6 @@
       "COMPILE",
       "GRAPH",
       "RAG",
-      "HAVANA",
-      "APIAD",
       "ENTROPY",
       "LAMBDA",
       "TOKEN"

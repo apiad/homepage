@@ -750,51 +750,75 @@
     });
   }
 
-  // ---- scroll-triggered playback --------------------------------------
-  function setupObserver(){
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(async(ent)=>{
-        if(!ent.isIntersecting) return;
-        const el = ent.target;
-        if(el.dataset.played) return;
-        el.dataset.played = '1';
-        io.unobserve(el);
-        // chain playback: queue each play so they don't overlap
-        state.playing = (state.playing || Promise.resolve()).then(()=>playScene(el));
-      });
-    }, { root:null, rootMargin:'0px 0px -18% 0px', threshold:0.2 });
+  // ---- strictly sequential playback ----------------------------------
+  // Scenes play ONE at a time, in DOM order. A scene only starts after
+  // the previous scene has fully finished playing AND the scene itself
+  // has scrolled into view (or state.skip short-circuits the wait).
+  // This fixes the cascade where small-height collapsed scenes all
+  // fired their IntersectionObserver at once.
 
-    document.querySelectorAll('.scene').forEach(el=>io.observe(el));
+  function isInView(el){
+    const r = el.getBoundingClientRect();
+    // match the previous observer's 18%-from-bottom margin
+    return r.top < window.innerHeight * 0.82 && r.bottom > 0;
+  }
+
+  function waitForVisible(el){
+    if(state.skip || isInView(el)) return Promise.resolve();
+    return new Promise(resolve => {
+      const io = new IntersectionObserver((entries) => {
+        for(const e of entries){
+          if(e.isIntersecting || state.skip){
+            io.disconnect();
+            if(skipWatch) clearInterval(skipWatch);
+            resolve();
+            return;
+          }
+        }
+      }, { root:null, rootMargin:'0px 0px -18% 0px', threshold:0.2 });
+      io.observe(el);
+      // also poll state.skip so clicking skip mid-wait unblocks the loop
+      const skipWatch = setInterval(() => {
+        if(state.skip){
+          clearInterval(skipWatch);
+          io.disconnect();
+          resolve();
+        }
+      }, 80);
+    });
+  }
+
+  async function playAllScenes(){
+    const scenes = [...document.querySelectorAll('.scene')];
+    for(const el of scenes){
+      if(el.dataset.played === '1') continue;
+      await waitForVisible(el);
+      el.dataset.played = '1';
+      await playScene(el);
+    }
   }
 
   // ---- replay ---------------------------------------------------------
   async function replay(){
-    // wait for current play to settle (respecting skip)
+    // fast-forward the current loop so it unwinds cleanly
     state.skip = true;
     await Promise.resolve(state.playing).catch(()=>{});
     state.skip = false;
     state.playedScenes.clear();
     state.playing = null;
     buildScaffold();
-    setupObserver();
     window.scrollTo({top:0, behavior:'instant'});
-    // play first scene immediately
-    const first = document.querySelector('.scene');
-    if(first){ first.dataset.played='1'; state.playing = playScene(first); }
+    state.playing = playAllScenes();
   }
 
   // ---- UI bindings ----------------------------------------------------
   document.getElementById('btn-replay').addEventListener('click', replay);
   document.getElementById('btn-skip').addEventListener('click', ()=>{
+    // Keep skip latched: the sequential loop will burn through the
+    // remaining scenes without waiting for scroll, and each playScene
+    // will run typing instantly. Skip stays on for the rest of the
+    // session — replay resets it.
     state.skip = true;
-    // reveal all remaining blocks quickly (but still via observer for unplayed)
-    document.querySelectorAll('.scene').forEach(el=>{
-      if(el.dataset.played) return;
-      el.dataset.played='1';
-      state.playing = (state.playing || Promise.resolve()).then(()=>playScene(el));
-    });
-    // after a beat, restore skip
-    setTimeout(()=>{ state.skip=false; }, 80);
   });
   // fake theme toggle — flinches, refuses, declares the bug joke
   const btnTheme = document.getElementById('btn-theme');
@@ -928,12 +952,13 @@
   // ---- init -----------------------------------------------------------
   setSpeed(state.speed);
   buildScaffold();
-  setupObserver();
-  // play the first scene automatically on load
+  // Data (data.json + live.json) is already loaded by this point — the
+  // main() IIFE awaits both fetches before any of the scene build/play
+  // code runs, so every scene renders with real data from the start.
+  // Small warm-up sleep so the cursor flash lands a beat after paint.
   (async()=>{
     await sleep(220);
-    const first = document.querySelector('.scene');
-    if(first){ first.dataset.played='1'; state.playing = playScene(first); }
+    state.playing = playAllScenes();
   })();
 
 })();
