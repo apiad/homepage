@@ -160,16 +160,15 @@
       `;
   }
 
-  function renderTalks(){
-    const rows = data.talks.items.map(t => `
-          <a class="row" href="${t.url}">
-            <span class="date">${t.date}</span>
-            <span class="title">${t.title}<small>${t.subtitle}</small></span>
-            <span class="arrow">${t.action} →</span>
-          </a>`).join('');
+  function renderPublications(){
+    // The list is populated at runtime from OpenAlex (see initPublications
+    // below). The initial render is a loading skeleton with a link back to
+    // Google Scholar so the reader has somewhere to go if the fetch fails.
+    const limit = data.publications.limit || 20;
     return `
-        <p class="sh-line"><span class="tag">##</span> <span class="arg">Talks &amp; publications</span> <span class="muted">— selected</span></p>
-        <div class="rows">${rows}
+        <p class="sh-line"><span class="tag">##</span> <span class="arg">Publications</span> <span class="muted">— top ${limit} by citations · via <a href="https://openalex.org/authors/orcid:${data.publications.orcid}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">OpenAlex</a> · <a href="https://scholar.google.com/citations?user=4P9BS6QAAAAJ" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none">scholar</a></span></p>
+        <div class="rows" id="pub-rows" data-pub-loading="1">
+          <p class="ln prompt" style="color:var(--muted);margin:8px 0">loading publications…</p>
         </div>
       `;
   }
@@ -212,7 +211,7 @@
     { id:'library',  lines:[{kind:'prompt', text:data.library.prompt}],  render:renderLibrary(),  crumb:'~/library' },
     { id:'research', lines:[{kind:'prompt', text:data.research.prompt}], render:renderResearch(), crumb:'~/research' },
     { id:'projects', lines:[{kind:'prompt', text:data.projects.prompt}], render:renderProjects(), crumb:'~/projects' },
-    { id:'talks',    lines:[{kind:'prompt', text:data.talks.prompt}],    render:renderTalks(),    crumb:'~/talks' },
+    { id:'publications', lines:[{kind:'prompt', text:data.publications.prompt}], render:renderPublications(), crumb:'~/publications' },
     { id:'elsewhere',lines:[{kind:'prompt', text:data.elsewhere.prompt}],render:renderElsewhere(),crumb:'~/elsewhere' },
   ];
 
@@ -329,13 +328,15 @@
     if(block){
       await sleep(160);
       block.classList.add('on');
-      // bootstrap carousel if this scene contains one
+      // bootstrap dynamic sections if this scene contains them
       const car = block.querySelector('.now-carousel');
       if(car && !car.dataset.inited){ initNowCarousel(car); }
       const rc = block.querySelector('.repo-carousel');
       if(rc && !rc.dataset.inited){ initRepoCarousel(rc); }
       const rain = block.querySelector('#rain-canvas');
       if(rain && !rain.dataset.inited){ initMatrixRain(rain); }
+      const pubs = block.querySelector('#pub-rows');
+      if(pubs && !pubs.dataset.inited){ initPublications(pubs); }
       await sleep(260);
     }
   }
@@ -701,6 +702,100 @@
     cnt.textContent = hits + ' featured';
   }
 
+  // ---- publications (OpenAlex) ---------------------------------------
+  // Fetch the top-N most-cited works for the given ORCID from OpenAlex,
+  // cache in localStorage for 24h (same pattern as repos). OpenAlex has
+  // CORS enabled and a generous public rate limit; the `mailto` param is
+  // the convention for getting into their "polite pool" with better
+  // priority on rate limits.
+  const PUB_CACHE_KEY = 'apiad.homepage.publications.v1';
+  const PUB_CACHE_TTL_MS = 24*60*60*1000;
+
+  function loadPubCache(){
+    try{
+      const raw = localStorage.getItem(PUB_CACHE_KEY);
+      if(!raw) return null;
+      const c = JSON.parse(raw);
+      if(!c || !c.ts || !Array.isArray(c.items)) return null;
+      if(Date.now() - c.ts > PUB_CACHE_TTL_MS) return null;
+      if(c.orcid !== data.publications.orcid) return null;
+      if(c.limit !== (data.publications.limit || 20)) return null;
+      return c.items;
+    }catch(e){ return null; }
+  }
+
+  function savePubCache(items){
+    try{
+      localStorage.setItem(PUB_CACHE_KEY, JSON.stringify({
+        ts: Date.now(),
+        orcid: data.publications.orcid,
+        limit: data.publications.limit || 20,
+        items,
+      }));
+    }catch(e){}
+  }
+
+  function shapeOpenAlexWork(w){
+    const authors = (w.authorships || [])
+      .map(a => a.author && a.author.display_name)
+      .filter(Boolean);
+    const venue = w.primary_location && w.primary_location.source
+      ? w.primary_location.source.display_name
+      : '';
+    const url = w.doi ? ('https://doi.org/' + String(w.doi).replace(/^https?:\/\/(dx\.)?doi\.org\//,'')) : w.id;
+    return {
+      title: w.title || w.display_name || '(untitled)',
+      year: w.publication_year || '',
+      citations: w.cited_by_count || 0,
+      authors,
+      venue,
+      type: (w.type || '').replace(/-/g,' '),
+      url,
+    };
+  }
+
+  async function fetchPublicationsLive(){
+    const orcid = data.publications.orcid;
+    const limit = data.publications.limit || 20;
+    const mailto = data.publications.contactEmail ? '&mailto=' + encodeURIComponent(data.publications.contactEmail) : '';
+    const url = `https://api.openalex.org/works?filter=author.orcid:${orcid}&sort=cited_by_count:desc&per-page=${limit}${mailto}`;
+    try{
+      const r = await fetch(url, {headers:{'Accept':'application/json'}});
+      if(!r.ok) return null;
+      const j = await r.json();
+      return (j.results || []).map(shapeOpenAlexWork);
+    }catch(e){ return null; }
+  }
+
+  function renderPubRow(p){
+    const authors = p.authors.slice(0, 3).join(', ') + (p.authors.length > 3 ? ', et al.' : '');
+    const small = [authors, p.venue].filter(Boolean).join(' · ');
+    const cite = p.citations >= 1 ? `${p.citations}×` : '—';
+    return `
+          <a class="row" href="${p.url}" target="_blank" rel="noopener">
+            <span class="date">${p.year || '—'}</span>
+            <span class="title">${p.title}<small>${small}</small></span>
+            <span class="arrow">${cite} →</span>
+          </a>`;
+  }
+
+  async function initPublications(root){
+    root.dataset.inited = '1';
+    async function paint(items){
+      if(!items || !items.length){
+        root.innerHTML = `<p class="ln prompt" style="color:var(--warn);margin:8px 0">Could not load publications. Try <a href="https://scholar.google.com/citations?user=4P9BS6QAAAAJ" target="_blank" rel="noopener" style="color:var(--accent)">scholar</a> directly.</p>`;
+      } else {
+        root.innerHTML = items.map(renderPubRow).join('');
+      }
+      root.removeAttribute('data-pub-loading');
+    }
+    const cached = loadPubCache();
+    if(cached){ paint(cached); return; }
+    const items = await fetchPublicationsLive();
+    if(items) savePubCache(items);
+    paint(items);
+  }
+
   // ---- scroll-triggered playback --------------------------------------
   function setupObserver(){
     const io = new IntersectionObserver((entries)=>{
@@ -777,7 +872,7 @@
   const brandTrigger = document.getElementById('brand-trigger');
   const brandLinks = [...document.querySelectorAll('.brand-links a')];
   const crumbElNav = document.getElementById('crumb');
-  const NAV_IDS = ['about','now','writing','library','research','projects','talks','elsewhere'];
+  const NAV_IDS = ['about','now','writing','library','research','projects','publications','elsewhere'];
 
   function closeBrand(){
     brandEl.classList.remove('on');

@@ -159,9 +159,9 @@
     ]
   },
   "projects": {
-    "prompt": "gh repo list apiad --limit 10 --sort awesomeness",
+    "prompt": "gh repo list apiad --limit 16 --sort awesomeness",
     "githubUser": "apiad",
-    "pageSize": 6,
+    "pageSize": 4,
     "curated": [
       { "owner": "gia-uh",     "name": "cecilia" },
       { "owner": "gia-uh",     "name": "lingo" },
@@ -176,48 +176,16 @@
       { "owner": "apiad",      "name": "codesmells" },
       { "owner": "apiad",      "name": "purely" },
       { "owner": "apiad",      "name": "sixma" },
+      { "owner": "apiad",      "name": "ferret" },
+      { "owner": "apiad",      "name": "castor" },
       { "owner": "apiad",      "name": "manifoldx" }
     ]
   },
-  "talks": {
-    "prompt": "cat talks.log | sort -r",
-    "items": [
-      {
-        "date": "2025",
-        "title": "Neurosymbolic reasoning in the age of LLMs",
-        "subtitle": "Invited keynote · LatinX in AI @ NeurIPS",
-        "action": "SLIDES",
-        "url": "#"
-      },
-      {
-        "date": "2024",
-        "title": "AutoGOAL: evolutionary AutoML for low-resource teams",
-        "subtitle": "Knowledge-Based Systems · Elsevier",
-        "action": "PAPER",
-        "url": "#"
-      },
-      {
-        "date": "2024",
-        "title": "Teaching AI in the global south",
-        "subtitle": "Workshop · AAAI Educational Track",
-        "action": "PAPER",
-        "url": "#"
-      },
-      {
-        "date": "2023",
-        "title": "eHealth-KD: knowledge discovery for Spanish health text",
-        "subtitle": "IberLEF shared task · co-organizer",
-        "action": "PAPER",
-        "url": "#"
-      },
-      {
-        "date": "2022",
-        "title": "A semantic framework for knowledge graph extraction",
-        "subtitle": "Natural Language Engineering",
-        "action": "PAPER",
-        "url": "#"
-      }
-    ]
+  "publications": {
+    "prompt": "openalex works --orcid 0000-0001-9522-3239 --sort citations --limit 20",
+    "orcid": "0000-0001-9522-3239",
+    "limit": 20,
+    "contactEmail": "apiad@apiad.net"
   },
   "elsewhere": {
     "prompt": "curl -s apiad.net/links | jq .",
