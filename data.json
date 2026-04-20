@@ -112,15 +112,13 @@
     "introHtml": "My PhD was on knowledge discovery for natural language. These days I work on <span class=\"amber\">neurosymbolic architectures</span> — getting LLMs to cooperate with structured knowledge, symbolic solvers, and classical AI. Find the papers on:",
     "links": [
       {
-        "label": "Google Scholar",
-        "url": "https://scholar.google.com/citations?user="
-      },
-      {
         "label": "ORCID · 0000-0001-9522-3239",
         "url": "https://orcid.org/0000-0001-9522-3239"
       },
-      { "label": "DBLP", "url": "https://dblp.org" },
-      { "label": "CV (PDF)", "url": "cv.pdf" }
+      {
+        "label": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user=4P9BS6QAAAAJ&hl=en"
+      }
     ]
   },
   "projects": {

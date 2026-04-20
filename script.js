@@ -759,8 +759,11 @@
 
   function isInView(el){
     const r = el.getBoundingClientRect();
-    // match the previous observer's 18%-from-bottom margin
-    return r.top < window.innerHeight * 0.82 && r.bottom > 0;
+    // any part of the scene visible in the viewport counts — previous
+    // version used a -18% bottom margin which could exclude the last
+    // scene permanently if it sat in the bottom 18% of the viewport
+    // at max scroll (i.e. its top never rose above 0.82 * innerHeight).
+    return r.top < window.innerHeight && r.bottom > 0;
   }
 
   function waitForVisible(el){
@@ -775,7 +778,7 @@
             return;
           }
         }
-      }, { root:null, rootMargin:'0px 0px -18% 0px', threshold:0.2 });
+      }, { root:null, rootMargin:'0px', threshold:0 });
       io.observe(el);
       // also poll state.skip so clicking skip mid-wait unblocks the loop
       const skipWatch = setInterval(() => {
