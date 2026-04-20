@@ -226,6 +226,16 @@
   }
   .block.on{opacity:1;transform:none}
 
+  /* collapsed state for unplayed scenes — only the rule separator is
+     visible, acting as a scroll "teaser". When the observer fires it
+     sets data-played on the scene wrap, the ln slots and block become
+     laid out, typing/reveal happens, and the frame grows to fit the
+     content one scene at a time. */
+  .scene:not([data-played]) > span.ln,
+  .scene:not([data-played]) > .block{
+    display:none;
+  }
+
   /* dashed separator between sections, ascii-y */
   .rule{
     display:block;color:var(--dim);margin:26px 0 14px;letter-spacing:0;user-select:none;
