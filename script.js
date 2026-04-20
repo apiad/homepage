@@ -1,9 +1,23 @@
-  /* =========================================================
-     apiad.net — terminal build-up
-     Each section is a "scene": a prompt types in, pauses, runs,
-     prints output. First scene runs on load. Each subsequent
-     scene runs when it scrolls into view (once).
-     ========================================================= */
+/* =========================================================
+   apiad.net — terminal build-up
+   Content lives in data.json; this file is presentation only.
+   Each section is a "scene": a prompt types in, pauses, runs,
+   prints output. First scene runs on load. Each subsequent
+   scene runs when it scrolls into view (once).
+   ========================================================= */
+
+(async function main(){
+
+  // ---- data load ------------------------------------------------------
+  const data = await fetch('./data.json', {cache:'no-cache'})
+    .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
+    .catch(err => { console.error('apiad: failed to load data.json', err); return null; });
+
+  if(!data){
+    const body = document.getElementById('body');
+    if(body) body.innerHTML = '<p style="color:var(--warn);padding:40px">Failed to load data.json — site content unavailable.</p>';
+    return;
+  }
 
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     "speed": "fast"
@@ -17,333 +31,186 @@
   };
   const SPEED = { slow:[22,14], normal:[12,8], fast:[4,3] };
 
-  // ---- scene content ---------------------------------------------------
-  // Each scene: { id, cmd (typed after prompt), render(el) -> HTML appended }
-  const scenes = [
-    {
-      id:'boot',
-      lines:[
-        { kind:'comment', text:'# apiad.net · v4.2 — made with ai in havana, cuba' },
-        { kind:'prompt',  text:'whoami' },
-        { kind:'out',     text:'alejandro piad morffis — computer scientist, educator, neurosymbolic-ai researcher.' },
-        { kind:'prompt',  text:'uname -a' },
-        { kind:'out',     html:'apiad <span class="muted">5.18.0-havana-cu</span> <span class="green">#1 SMP</span> <span class="amber">PhD CS · tenured · univ. of havana</span>' },
-      ],
-      render:`
+  // ---- scene renderers (pure strings, fed from data) ------------------
+
+  function renderHero(){
+    const h = data.hero;
+    return `
         <div class="idbox">
-          <img class="avatar" alt="Alejandro Piad Morffis"
-               src="https://avatars.githubusercontent.com/u/1778204?v=4"
+          <img class="avatar" alt="${h.name}"
+               src="${h.avatarUrl}"
                onerror="this.removeAttribute('src')">
           <div>
-            <h1>Alejandro Piad Morffis</h1>
-            <p class="tag">
-              <b>Tenured Professor</b> of Computer Science, Univ. of Havana ·
-              <b>Neurosymbolic AI</b> researcher ·
-              Co-founder <b>Syalia</b> · Director <b>GIA-UH</b> ·
-              Writes <b>The Computist Journal</b>.
-            </p>
-            <a class="pill" href="mailto:apiad@apiad.net">● open to collaborations</a>
+            <h1>${h.name}</h1>
+            <p class="tag">${h.taglineHtml}</p>
+            <a class="pill" href="${h.cta.href}">${h.cta.text}</a>
           </div>
         </div>
-      `,
-      crumb:'~'
-    },
+      `;
+  }
 
-    {
-      id:'about',
-      lines:[
-        { kind:'prompt', text:'cat about.md' },
-      ],
-      render:`
+  function renderAbout(){
+    const paras = data.about.paragraphs.map((p,i) => i===0
+      ? `<p style="margin:10px 0 0;max-width:60ch;color:#d4ddd4">${p}</p>`
+      : `<p style="margin:12px 0 0;max-width:60ch;color:var(--muted);font-size:14px">${p}</p>`
+    ).join('\n            ');
+    return `
         <p class="sh-line"><span class="tag">##</span> <span class="arg">About</span></p>
         <div class="about-grid">
           <div class="about-copy">
-            <p style="margin:10px 0 0;max-width:60ch;color:#d4ddd4">
-              I'm a computer scientist and educator living in <span class="amber">Havana, Cuba</span>.
-              I teach <span class="green">Programming</span>, <span class="green">Compilers</span> and <span class="green">AI</span>
-              at the University of Havana, and I research <span class="amber">neurosymbolic AI</span> — the
-              messy, beautiful frontier where <span class="kbd">LLMs</span> meet classical symbolic methods.
-            </p>
-            <p style="margin:12px 0 0;max-width:60ch;color:var(--muted);font-size:14px">
-              I co-founded <span class="green">Syalia</span>, where we build pragmatic AI software,
-              and I direct <span class="green">GIA-UH</span>, a research group on democratizing
-              machine learning. I write <span class="amber">The Computist Journal</span> —
-              6,000+ readers, mostly about how computer science actually works underneath the hype.
-            </p>
+            ${paras}
           </div>
           <div class="rain-wrap" aria-hidden="true">
             <canvas id="rain-canvas"></canvas>
             <div class="rain-vignette"></div>
           </div>
         </div>
-      `,
-      crumb:'~/about'
-    },
+      `;
+  }
 
-    {
-      id:'now',
-      lines:[
-        { kind:'prompt', text:'tail -n 5 ~/.focus' },
-      ],
-      render:`
-        <p class="sh-line"><span class="tag">##</span> <span class="arg">Now</span> <span class="muted">— <span id="now-stamp">last updated apr '26</span></span></p>
+  function renderNow(){
+    const slides = data.now.items.map(it => `
+            <div class="now now-slide">
+              <span class="dot"></span>
+              <div><span class="hl">${it.headlineHtml}</span>
+              ${it.bodyHtml}</div>
+            </div>`).join('');
+    return `
+        <p class="sh-line"><span class="tag">##</span> <span class="arg">Now</span> <span class="muted">— <span id="now-stamp">last updated ${data.now.updatedLabel}</span></span></p>
         <div class="now-carousel" id="now-carousel">
-          <div class="now-track" id="now-track">
-            <div class="now now-slide">
-              <span class="dot"></span>
-              <div><span class="hl">Writing a book on neurosymbolic methods.</span>
-              Draft one is at ~60%; trying to keep it shorter than my PhD thesis.</div>
-            </div>
-            <div class="now now-slide">
-              <span class="dot"></span>
-              <div><span class="hl">Shipping <span class="green">beaver</span> and <span class="green">lingo</span>.</span>
-              A multi-modal embedded DB and a Python context-engineering toolkit — both open source.</div>
-            </div>
-            <div class="now now-slide">
-              <span class="dot"></span>
-              <div><span class="hl">Teaching a graduate course on LLM reasoning.</span>
-              UH, spring '26. Syllabus draws heavily from neurosymbolic + classical AI.</div>
-            </div>
-            <div class="now now-slide">
-              <span class="dot"></span>
-              <div><span class="hl">Growing GIA-UH.</span>
-              Onboarding three new master's students working on Spanish-language NLP for low-resource settings.</div>
-            </div>
-            <div class="now now-slide">
-              <span class="dot"></span>
-              <div><span class="hl">Reading: <em>The Society of Mind</em> + recent CoT-reasoning papers.</span>
-              Looking for the seams where symbolic structure helps LLMs think, not just talk.</div>
-            </div>
+          <div class="now-track" id="now-track">${slides}
           </div>
           <div class="now-ctrl">
             <button class="now-btn" data-now="prev" aria-label="Previous">‹</button>
             <div class="now-dots" id="now-dots"></div>
             <button class="now-btn" data-now="next" aria-label="Next">›</button>
-            <span class="now-idx" id="now-idx">1/5</span>
+            <span class="now-idx" id="now-idx">1/${data.now.items.length}</span>
           </div>
         </div>
-      `,
-      crumb:'~/now'
-    },
+      `;
+  }
 
-    {
-      id:'writing',
-      lines:[
-        { kind:'prompt', text:'ls -lah ~/writing | head -7' },
-      ],
-      render:`
-        <p class="sh-line"><span class="tag">##</span> <span class="arg">Writing</span> <span class="muted">— <a href="https://blog.apiad.net" style="color:var(--accent);text-decoration:none">blog.apiad.net</a> · 6,000+ subscribers</span></p>
-        <div class="rows">
-          <a class="row" href="https://blog.apiad.net">
-            <span class="date">2026 · mar</span>
-            <span class="title">Why neurosymbolic AI is having its moment, again<small>On the third wave of hybrid reasoning systems.</small></span>
+  function renderWriting(){
+    const rows = data.writing.posts.map(p => `
+          <a class="row" href="${p.url}">
+            <span class="date">${p.date}</span>
+            <span class="title">${p.title}<small>${p.subtitle}</small></span>
             <span class="arrow">READ →</span>
-          </a>
-          <a class="row" href="https://blog.apiad.net">
-            <span class="date">2026 · feb</span>
-            <span class="title">The quiet return of Prolog<small>What LLM tool-use borrowed from logic programming.</small></span>
-            <span class="arrow">READ →</span>
-          </a>
-          <a class="row" href="https://blog.apiad.net">
-            <span class="date">2026 · jan</span>
-            <span class="title">Teaching compilers without writing a compiler<small>A lab-first curriculum from four years at UH.</small></span>
-            <span class="arrow">READ →</span>
-          </a>
-          <a class="row" href="https://blog.apiad.net">
-            <span class="date">2025 · dec</span>
-            <span class="title">A working definition of reasoning<small>Draft notes I keep returning to.</small></span>
-            <span class="arrow">READ →</span>
-          </a>
-          <a class="row" href="https://blog.apiad.net">
-            <span class="date">2025 · nov</span>
-            <span class="title">Context engineering isn't prompt engineering<small>Why I built a whole library around it.</small></span>
-            <span class="arrow">READ →</span>
-          </a>
-          <a class="row" href="https://blog.apiad.net">
-            <span class="date">2025 · oct</span>
-            <span class="title">Small models, sharp tools<small>Why I keep coming back to 1-3B parameter models for teaching.</small></span>
-            <span class="arrow">READ →</span>
-          </a>
+          </a>`).join('');
+    return `
+        <p class="sh-line"><span class="tag">##</span> <span class="arg">Writing</span> <span class="muted">— <a href="${data.writing.blogUrl}" style="color:var(--accent);text-decoration:none">blog.apiad.net</a> · ${data.writing.subscribersLabel}</span></p>
+        <div class="rows">${rows}
         </div>
-      `,
-      crumb:'~/writing'
-    },
+      `;
+  }
 
-    {
-      id:'library',
-      lines:[
-        { kind:'prompt', text:'ls ~/library/' },
-      ],
-      render:`
-        <p class="sh-line"><span class="tag">##</span> <span class="arg">Library</span> <span class="muted">— <a href="https://books.apiad.net" style="color:var(--accent);text-decoration:none" target="_blank" rel="noopener">books.apiad.net</a> · free online books · read any chapter as a web page</span></p>
-        <p class="muted" style="margin:10px 0 14px;max-width:72ch;font-size:13px">
-          Every chapter ships as a blog post first, then folds into one of four books in progress.
-          The reader at <span class="green">books.apiad.net</span> is always free — no account, no paywall.
-        </p>
-        <div class="books-grid">
-          <a class="book" href="https://books.apiad.net/books/tsoc" target="_blank" rel="noopener">
+  function renderLibrary(){
+    const books = data.library.books.map(b => `
+          <a class="book" href="${data.library.booksUrl}/books/${b.slug}" target="_blank" rel="noopener">
             <div class="book-head">
-              <span class="book-tag" data-status="alpha">alpha · 18%</span>
-              <span class="book-aud">general</span>
+              <span class="book-tag" data-status="${b.status}">${b.status} · ${b.progress}%</span>
+              <span class="book-aud">${b.audience}</span>
             </div>
-            <h3>The Science of Computation</h3>
-            <p>A grand view of computer science — foundations, systems, software engineering, AI. Zero formulas or code.</p>
-            <div class="book-bar"><i style="width:18%"></i></div>
-            <div class="book-foot"><span>53 / 300 pp</span><span class="arrow">READ →</span></div>
-          </a>
-          <a class="book" href="https://books.apiad.net/books/mhai" target="_blank" rel="noopener">
-            <div class="book-head">
-              <span class="book-tag" data-status="beta">beta · 31%</span>
-              <span class="book-aud">general</span>
-            </div>
-            <h3>Mostly Harmless AI</h3>
-            <p>Essays on AI and its impact on society — software, education, existential risks, limits, futures.</p>
-            <div class="book-bar"><i style="width:31%"></i></div>
-            <div class="book-foot"><span>92 / 300 pp</span><span class="arrow">READ →</span></div>
-          </a>
-          <a class="book" href="https://books.apiad.net/books/chatbots" target="_blank" rel="noopener">
-            <div class="book-head">
-              <span class="book-tag" data-status="alpha">alpha · 73%</span>
-              <span class="book-aud">technical</span>
-            </div>
-            <h3>How to Train your Chatbot</h3>
-            <p>Hands-on guide to building LLM applications — prompts, RAG, tools, agents, and how LLMs actually work.</p>
-            <div class="book-bar"><i style="width:73%"></i></div>
-            <div class="book-foot"><span>183 / 250 pp</span><span class="arrow">READ →</span></div>
-          </a>
-          <a class="book" href="https://books.apiad.net/books/graphs" target="_blank" rel="noopener">
-            <div class="book-head">
-              <span class="book-tag" data-status="alpha">alpha · 18%</span>
-              <span class="book-aud">technical</span>
-            </div>
-            <h3>Mostly Harmless Graphs</h3>
-            <p>Graphs from theory to algorithms to applications. Each chapter opens with a concrete problem.</p>
-            <div class="book-bar"><i style="width:18%"></i></div>
-            <div class="book-foot"><span>54 / 300 pp</span><span class="arrow">READ →</span></div>
-          </a>
+            <h3>${b.title}</h3>
+            <p>${b.desc}</p>
+            <div class="book-bar"><i style="width:${b.progress}%"></i></div>
+            <div class="book-foot"><span>${b.pagesDone} / ${b.pagesTotal} pp</span><span class="arrow">READ →</span></div>
+          </a>`).join('');
+    const backburner = data.library.backburner.map(t => `<span>${t}</span>`).join('\n            ');
+    return `
+        <p class="sh-line"><span class="tag">##</span> <span class="arg">Library</span> <span class="muted">— <a href="${data.library.booksUrl}" style="color:var(--accent);text-decoration:none" target="_blank" rel="noopener">books.apiad.net</a> · free online books · read any chapter as a web page</span></p>
+        <p class="muted" style="margin:10px 0 14px;max-width:72ch;font-size:13px">${data.library.descriptionHtml}</p>
+        <div class="books-grid">${books}
         </div>
         <details class="backburner">
-          <summary><span class="kbd">$</span> cat ~/library/backburner.txt <span class="muted">— 6 titles on the back burner</span></summary>
+          <summary><span class="kbd">$</span> cat ~/library/backburner.txt <span class="muted">— ${data.library.backburner.length} titles on the back burner</span></summary>
           <div class="backburner-list">
-            <span>Mostly Harmless Algorithms</span>
-            <span>Mostly Harmless Compilers</span>
-            <span>How to Think Like a Computer Scientist</span>
-            <span>Beautiful Algorithms</span>
-            <span>The Hacker Guide to Coding</span>
-            <span>Languages and Computation</span>
+            ${backburner}
           </div>
         </details>
-      `,
-      crumb:'~/library'
-    },
+      `;
+  }
 
-    {
-      id:'research',
-      lines:[
-        { kind:'prompt', text:'grep -r "neurosymbolic" ~/research/' },
-      ],
-      render:`
+  function renderResearch(){
+    const links = data.research.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join('\n          ');
+    return `
         <p class="sh-line"><span class="tag">##</span> <span class="arg">Research</span> <span class="muted">— neurosymbolic · NLP · ML democratization</span></p>
-        <p style="margin:10px 0 0;max-width:68ch;color:#d4ddd4">
-          My PhD was on knowledge discovery for natural language. These days I work
-          on <span class="amber">neurosymbolic architectures</span> — getting LLMs to
-          cooperate with structured knowledge, symbolic solvers, and classical AI.
-          Find the papers on:
-        </p>
+        <p style="margin:10px 0 0;max-width:68ch;color:#d4ddd4">${data.research.introHtml}</p>
         <div class="links">
-          <a href="https://scholar.google.com/citations?user=" target="_blank" rel="noopener">Google Scholar</a>
-          <a href="https://orcid.org/0000-0001-9522-3239" target="_blank" rel="noopener">ORCID · 0000-0001-9522-3239</a>
-          <a href="https://dblp.org" target="_blank" rel="noopener">DBLP</a>
-          <a href="cv.pdf">CV (PDF)</a>
+          ${links}
         </div>
-      `,
-      crumb:'~/research'
-    },
+      `;
+  }
 
-    {
-      id:'projects',
-      lines:[
-        { kind:'prompt', text:'gh repo list apiad --limit 30 --sort updated' },
-      ],
-      render:`
-        <p class="sh-line"><span class="tag">##</span> <span class="arg">Projects</span> <span class="muted">— <a href="https://github.com/apiad" style="color:var(--accent);text-decoration:none">github.com/apiad</a> · <span id="gh-count">92 repos</span></span></p>
+  function renderProjects(){
+    return `
+        <p class="sh-line"><span class="tag">##</span> <span class="arg">Projects</span> <span class="muted">— <a href="https://github.com/${data.projects.githubUser}" style="color:var(--accent);text-decoration:none">github.com/${data.projects.githubUser}</a> · <span id="gh-count">${data.projects.countLabel}</span></span></p>
         <div class="repo-carousel" id="repo-carousel">
           <div class="grid repo-grid" id="repo-grid" aria-live="polite"></div>
           <div class="now-ctrl">
             <button class="now-btn" data-repo="prev" aria-label="Previous page">‹</button>
             <div class="now-dots" id="repo-dots"></div>
             <button class="now-btn" data-repo="next" aria-label="Next page">›</button>
-            <span class="now-idx" id="repo-idx">1/5</span>
+            <span class="now-idx" id="repo-idx">1/${data.projects.pages}</span>
           </div>
         </div>
-      `,
-      crumb:'~/projects'
-    },
+      `;
+  }
 
-    {
-      id:'talks',
-      lines:[
-        { kind:'prompt', text:'cat talks.log | sort -r' },
-      ],
-      render:`
+  function renderTalks(){
+    const rows = data.talks.items.map(t => `
+          <a class="row" href="${t.url}">
+            <span class="date">${t.date}</span>
+            <span class="title">${t.title}<small>${t.subtitle}</small></span>
+            <span class="arrow">${t.action} →</span>
+          </a>`).join('');
+    return `
         <p class="sh-line"><span class="tag">##</span> <span class="arg">Talks &amp; publications</span> <span class="muted">— selected</span></p>
-        <div class="rows">
-          <a class="row" href="#">
-            <span class="date">2025</span>
-            <span class="title">Neurosymbolic reasoning in the age of LLMs<small>Invited keynote · LatinX in AI @ NeurIPS</small></span>
-            <span class="arrow">SLIDES →</span>
-          </a>
-          <a class="row" href="#">
-            <span class="date">2024</span>
-            <span class="title">AutoGOAL: evolutionary AutoML for low-resource teams<small>Knowledge-Based Systems · Elsevier</small></span>
-            <span class="arrow">PAPER →</span>
-          </a>
-          <a class="row" href="#">
-            <span class="date">2024</span>
-            <span class="title">Teaching AI in the global south<small>Workshop · AAAI Educational Track</small></span>
-            <span class="arrow">PAPER →</span>
-          </a>
-          <a class="row" href="#">
-            <span class="date">2023</span>
-            <span class="title">eHealth-KD: knowledge discovery for Spanish health text<small>IberLEF shared task · co-organizer</small></span>
-            <span class="arrow">PAPER →</span>
-          </a>
-          <a class="row" href="#">
-            <span class="date">2022</span>
-            <span class="title">A semantic framework for knowledge graph extraction<small>Natural Language Engineering</small></span>
-            <span class="arrow">PAPER →</span>
-          </a>
+        <div class="rows">${rows}
         </div>
-      `,
-      crumb:'~/talks'
-    },
+      `;
+  }
 
-    {
-      id:'elsewhere',
-      lines:[
-        { kind:'prompt', text:'curl -s apiad.net/links | jq .' },
-      ],
-      render:`
+  function renderElsewhere(){
+    const links = data.elsewhere.links.map(l => `<a href="${l.url}">${l.label}</a>`).join('\n          ');
+    const f = data.elsewhere.footer;
+    const cta = data.elsewhere.followCta;
+    return `
         <p class="sh-line"><span class="tag">##</span> <span class="arg">Elsewhere</span> <span class="muted">— the usual suspects</span></p>
         <div class="links">
-          <a href="https://blog.apiad.net">Substack</a>
-          <a href="https://github.com/apiad">GitHub</a>
-          <a href="https://linkedin.com/in/apiad">LinkedIn</a>
-          <a href="https://scholar.google.com">Google&nbsp;Scholar</a>
-          <a href="https://orcid.org/0000-0001-9522-3239">ORCID</a>
-          <a href="https://t.me/apiad">Telegram</a>
-          <a href="https://bsky.app/profile/apiad.net">Bluesky</a>
-          <a href="https://twitter.com/alepiad">X / Twitter</a>
-          <a href="mailto:hello@apiad.net">hello@apiad.net</a>
+          ${links}
         </div>
         <div class="foot">
-          <span>© 2026 Alejandro Piad Morffis · Havana 🇨🇺</span>
-          <span>made with ai in havana, cuba · <span class="green online-ind">●</span> online</span>
+          <span>${f.copy}</span>
+          <span>${f.tagline} · <span class="green online-ind">●</span> online</span>
         </div>
-        <p class="ln prompt" style="margin-top:24px"><a href="https://blog.apiad.net/subscribe" class="follow-link">follow me</a> for <span class="follow-rot" id="follow-rot" aria-live="polite"></span><span class="caret-blink">_</span></p>
-      `,
-      crumb:'~/elsewhere'
+        <p class="ln prompt" style="margin-top:24px"><a href="${cta.url}" class="follow-link">${cta.text}</a> for <span class="follow-rot" id="follow-rot" aria-live="polite"></span><span class="caret-blink">_</span></p>
+      `;
+  }
+
+  // ---- scenes (structure stays; content is data-driven) ---------------
+
+  const scenes = [
+    {
+      id:'boot',
+      lines:[
+        { kind:'comment', text: data.hero.bootComment },
+        { kind:'prompt',  text: 'whoami' },
+        { kind:'out',     text: data.hero.whoami },
+        { kind:'prompt',  text: 'uname -a' },
+        { kind:'out',     html: data.hero.unameHtml },
+      ],
+      render: renderHero(),
+      crumb: '~'
     },
+    { id:'about',    lines:[{kind:'prompt', text:data.about.prompt}],    render:renderAbout(),    crumb:'~/about' },
+    { id:'now',      lines:[{kind:'prompt', text:data.now.prompt}],      render:renderNow(),      crumb:'~/now' },
+    { id:'writing',  lines:[{kind:'prompt', text:data.writing.prompt}],  render:renderWriting(),  crumb:'~/writing' },
+    { id:'library',  lines:[{kind:'prompt', text:data.library.prompt}],  render:renderLibrary(),  crumb:'~/library' },
+    { id:'research', lines:[{kind:'prompt', text:data.research.prompt}], render:renderResearch(), crumb:'~/research' },
+    { id:'projects', lines:[{kind:'prompt', text:data.projects.prompt}], render:renderProjects(), crumb:'~/projects' },
+    { id:'talks',    lines:[{kind:'prompt', text:data.talks.prompt}],    render:renderTalks(),    crumb:'~/talks' },
+    { id:'elsewhere',lines:[{kind:'prompt', text:data.elsewhere.prompt}],render:renderElsewhere(),crumb:'~/elsewhere' },
   ];
 
   // ---- DOM building ----------------------------------------------------
@@ -486,7 +353,7 @@
       '≈≡⊕⊗¬∧∨∀∃→∈⊂∅∞±√∝'+
       'ℝℕℤℚℂ{}[]()<>=/\\*+-'
     ).split('');
-    const WORDS = ['AI','LLM','CODE','PYTHON','RUST','LISP','PROLOG','HACK','LOGIC','NEURO','SYMBOL','COMPILE','GRAPH','RAG','HAVANA','APIAD','ENTROPY','LAMBDA','TOKEN'];
+    const WORDS = data.matrixRain.words;
 
     const cell = 16;
     let cols = 0, rows = 0;
@@ -655,28 +522,31 @@
   }
 
   // ---- repo carousel -------------------------------------------------
-  const REPO_SEED = [
-    {name:'beaver', owner:'syalia-srl', desc:'All-in-one pure-python embedded DB for relational, document, vector, graph & event data on SQLite.', lang:'Python', stars:35, forks:10},
-    {name:'opencode', owner:'apiad', desc:'Powerful setup for AI-powered repositories.', lang:'Shell', stars:21, forks:4},
-    {name:'tesserax', owner:'apiad', desc:'A Pythonic library for scientific visualization in SVG.', lang:'Python', stars:19, forks:2},
-    {name:'illiterate', owner:'apiad', desc:'Unobtrusive literate programming experience for pragmatists.', lang:'Rust', stars:17, forks:3},
-    {name:'violetear', owner:'apiad', desc:'The full-stack web framework for Pythonistas.', lang:'Python', stars:12, forks:2},
-    {name:'lingo', owner:'gia-uh', desc:'A Python library for context engineering.', lang:'Python', stars:4, forks:3},
-  ];
+  const REPO_SEED = data.projects.seed;
+  const PAGE_SIZE = data.projects.pageSize;
+  const PAGES     = data.projects.pages;
+
   // placeholder pages 2-5 — replaced once GitHub API responds
   function seedPlaceholders(){
     const out = [...REPO_SEED];
-    const tags = ['autogoal','ehealthkd','knowledge-graph','pydsl','micro-nlp','grammar-tools','semantic-probe','symbolic-llm','havana-bench','pytree','tiny-rag','embedding-lab','cortex','mindful','tfidf-redux','lexer-101','prolog-ish','gia-corpus','kb-export','notepad','paperclip','agent-cli','compiler-toys','snippets'];
+    const tags = data.projects.placeholderTags;
+    const owners = data.projects.placeholderOwners;
     for(let i=0;i<24;i++){
-      out.push({name:tags[i]||'repo-'+(i+1), owner:i%3===0?'gia-uh':(i%3===1?'syalia-srl':'apiad'), desc:'—', lang:i%2?'Python':'TypeScript', stars:Math.floor(Math.random()*30), forks:Math.floor(Math.random()*6), _ph:true});
+      out.push({
+        name: tags[i] || 'repo-'+(i+1),
+        owner: owners[i%owners.length] || 'apiad',
+        desc: '—',
+        lang: i%2 ? 'Python' : 'TypeScript',
+        stars: Math.floor(Math.random()*30),
+        forks: Math.floor(Math.random()*6),
+        _ph: true
+      });
     }
     return out;
   }
   let REPOS = seedPlaceholders();
-  const PAGE_SIZE = 6, PAGES = 5;
 
   function repoCard(r){
-    const full = r.owner && r.owner !== 'apiad' ? r.owner+'/'+r.name : r.name;
     const h3 = r.owner && r.owner !== 'apiad'
       ? `<span class="scope">${r.owner}/</span>${r.name}`
       : r.name;
@@ -724,7 +594,7 @@
       if(!list || !list.length) return;
       REPOS = list.slice(0, PAGE_SIZE*PAGES);
       // top up with placeholders if fewer than needed
-      while(REPOS.length < PAGE_SIZE*PAGES) REPOS.push({name:'—', owner:'apiad', desc:'—', lang:'', stars:0, forks:0, _ph:true});
+      while(REPOS.length < PAGE_SIZE*PAGES) REPOS.push({name:'—', owner:data.projects.githubUser, desc:'—', lang:'', stars:0, forks:0, _ph:true});
       const cnt = document.getElementById('gh-count');
       if(cnt) cnt.textContent = REPOS.length+'+ repos';
       render();
@@ -733,19 +603,19 @@
 
   async function fetchRepos(){
     try{
-      const r = await fetch('https://api.github.com/users/apiad/repos?per_page=100&sort=updated', {headers:{'Accept':'application/vnd.github+json'}});
+      const r = await fetch(`https://api.github.com/users/${data.projects.githubUser}/repos?per_page=100&sort=updated`, {headers:{'Accept':'application/vnd.github+json'}});
       if(!r.ok) return null;
-      const data = await r.json();
-      return data
+      const gh = await r.json();
+      return gh
         .filter(x=>!x.fork)
         .sort((a,b)=> (b.stargazers_count||0) - (a.stargazers_count||0))
         .map(x=>({
-          name:x.name,
-          owner:x.owner?.login || 'apiad',
-          desc:x.description || '—',
-          lang:x.language || '',
-          stars:x.stargazers_count||0,
-          forks:x.forks_count||0,
+          name: x.name,
+          owner: x.owner?.login || data.projects.githubUser,
+          desc: x.description || '—',
+          lang: x.language || '',
+          stars: x.stargazers_count||0,
+          forks: x.forks_count||0,
         }));
     }catch(e){ return null; }
   }
@@ -886,27 +756,19 @@
   // ---- local time -----------------------------------------------------
   function tick(){
     const now = new Date();
-    const hh = String((now.getUTCHours()+24-4)%24).padStart(2,'0');
+    const off = (data.localTime && typeof data.localTime.utcOffsetHours === 'number') ? data.localTime.utcOffsetHours : 0;
+    const label = (data.localTime && data.localTime.label) || '';
+    const hh = String((now.getUTCHours()+24+off)%24).padStart(2,'0');
     const mm = String(now.getUTCMinutes()).padStart(2,'0');
     const ss = String(now.getUTCSeconds()).padStart(2,'0');
     const el = document.getElementById('localtime');
-    if(el) el.textContent = 'havana · '+hh+':'+mm+':'+ss;
+    if(el) el.textContent = (label ? label+' · ' : '') + hh+':'+mm+':'+ss;
   }
   tick(); setInterval(tick, 1000);
 
   // ---- rotating "follow me for ..." line ------------------------------
   (function followRotator(){
-    const WORDS = [
-      'research',
-      'coding tips',
-      'unhyped ai news',
-      'hot takes',
-      'neurosymbolic ai',
-      'compiler trivia',
-      'havana dispatches',
-      'deep dives',
-      'occasional rants',
-    ];
+    const WORDS = data.followRotator.words;
     let last = -1;
     function pick(){
       let i; do { i = Math.floor(Math.random()*WORDS.length); } while(i===last && WORDS.length>1);
@@ -943,3 +805,5 @@
     const first = document.querySelector('.scene');
     if(first){ first.dataset.played='1'; state.playing = playScene(first); }
   })();
+
+})();

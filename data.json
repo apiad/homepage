@@ -1,0 +1,347 @@
+{
+  "hero": {
+    "name": "Alejandro Piad Morffis",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/1778204?v=4",
+    "bootComment": "# apiad.net · v4.2 — made with ai in havana, cuba",
+    "whoami": "alejandro piad morffis — computer scientist, educator, neurosymbolic-ai researcher.",
+    "unameHtml": "apiad <span class=\"muted\">5.18.0-havana-cu</span> <span class=\"green\">#1 SMP</span> <span class=\"amber\">PhD CS · tenured · univ. of havana</span>",
+    "taglineHtml": "<b>Tenured Professor</b> of Computer Science, Univ. of Havana · <b>Neurosymbolic AI</b> researcher · Co-founder <b>Syalia</b> · Director <b>GIA-UH</b> · Writes <b>The Computist Journal</b>.",
+    "cta": {
+      "text": "● open to collaborations",
+      "href": "mailto:apiad@apiad.net"
+    }
+  },
+  "about": {
+    "prompt": "cat about.md",
+    "paragraphs": [
+      "I'm a computer scientist and educator living in <span class=\"amber\">Havana, Cuba</span>. I teach <span class=\"green\">Programming</span>, <span class=\"green\">Compilers</span> and <span class=\"green\">AI</span> at the University of Havana, and I research <span class=\"amber\">neurosymbolic AI</span> — the messy, beautiful frontier where <span class=\"kbd\">LLMs</span> meet classical symbolic methods.",
+      "I co-founded <span class=\"green\">Syalia</span>, where we build pragmatic AI software, and I direct <span class=\"green\">GIA-UH</span>, a research group on democratizing machine learning. I write <span class=\"amber\">The Computist Journal</span> — 6,000+ readers, mostly about how computer science actually works underneath the hype."
+    ]
+  },
+  "now": {
+    "prompt": "tail -n 5 ~/.focus",
+    "updatedLabel": "apr '26",
+    "items": [
+      {
+        "headlineHtml": "Writing a book on neurosymbolic methods.",
+        "bodyHtml": "Draft one is at ~60%; trying to keep it shorter than my PhD thesis."
+      },
+      {
+        "headlineHtml": "Shipping <span class=\"green\">beaver</span> and <span class=\"green\">lingo</span>.",
+        "bodyHtml": "A multi-modal embedded DB and a Python context-engineering toolkit — both open source."
+      },
+      {
+        "headlineHtml": "Teaching a graduate course on LLM reasoning.",
+        "bodyHtml": "UH, spring '26. Syllabus draws heavily from neurosymbolic + classical AI."
+      },
+      {
+        "headlineHtml": "Growing GIA-UH.",
+        "bodyHtml": "Onboarding three new master's students working on Spanish-language NLP for low-resource settings."
+      },
+      {
+        "headlineHtml": "Reading: <em>The Society of Mind</em> + recent CoT-reasoning papers.",
+        "bodyHtml": "Looking for the seams where symbolic structure helps LLMs think, not just talk."
+      }
+    ]
+  },
+  "writing": {
+    "prompt": "ls -lah ~/writing | head -7",
+    "blogUrl": "https://blog.apiad.net",
+    "subscribersLabel": "6,000+ subscribers",
+    "posts": [
+      {
+        "date": "2026 · mar",
+        "title": "Why neurosymbolic AI is having its moment, again",
+        "subtitle": "On the third wave of hybrid reasoning systems.",
+        "url": "https://blog.apiad.net"
+      },
+      {
+        "date": "2026 · feb",
+        "title": "The quiet return of Prolog",
+        "subtitle": "What LLM tool-use borrowed from logic programming.",
+        "url": "https://blog.apiad.net"
+      },
+      {
+        "date": "2026 · jan",
+        "title": "Teaching compilers without writing a compiler",
+        "subtitle": "A lab-first curriculum from four years at UH.",
+        "url": "https://blog.apiad.net"
+      },
+      {
+        "date": "2025 · dec",
+        "title": "A working definition of reasoning",
+        "subtitle": "Draft notes I keep returning to.",
+        "url": "https://blog.apiad.net"
+      },
+      {
+        "date": "2025 · nov",
+        "title": "Context engineering isn't prompt engineering",
+        "subtitle": "Why I built a whole library around it.",
+        "url": "https://blog.apiad.net"
+      },
+      {
+        "date": "2025 · oct",
+        "title": "Small models, sharp tools",
+        "subtitle": "Why I keep coming back to 1-3B parameter models for teaching.",
+        "url": "https://blog.apiad.net"
+      }
+    ]
+  },
+  "library": {
+    "prompt": "ls ~/library/",
+    "booksUrl": "https://books.apiad.net",
+    "descriptionHtml": "Every chapter ships as a blog post first, then folds into one of four books in progress. The reader at <span class=\"green\">books.apiad.net</span> is always free — no account, no paywall.",
+    "books": [
+      {
+        "slug": "tsoc",
+        "status": "alpha",
+        "progress": 18,
+        "audience": "general",
+        "title": "The Science of Computation",
+        "desc": "A grand view of computer science — foundations, systems, software engineering, AI. Zero formulas or code.",
+        "pagesDone": 53,
+        "pagesTotal": 300
+      },
+      {
+        "slug": "mhai",
+        "status": "beta",
+        "progress": 31,
+        "audience": "general",
+        "title": "Mostly Harmless AI",
+        "desc": "Essays on AI and its impact on society — software, education, existential risks, limits, futures.",
+        "pagesDone": 92,
+        "pagesTotal": 300
+      },
+      {
+        "slug": "chatbots",
+        "status": "alpha",
+        "progress": 73,
+        "audience": "technical",
+        "title": "How to Train your Chatbot",
+        "desc": "Hands-on guide to building LLM applications — prompts, RAG, tools, agents, and how LLMs actually work.",
+        "pagesDone": 183,
+        "pagesTotal": 250
+      },
+      {
+        "slug": "graphs",
+        "status": "alpha",
+        "progress": 18,
+        "audience": "technical",
+        "title": "Mostly Harmless Graphs",
+        "desc": "Graphs from theory to algorithms to applications. Each chapter opens with a concrete problem.",
+        "pagesDone": 54,
+        "pagesTotal": 300
+      }
+    ],
+    "backburner": [
+      "Mostly Harmless Algorithms",
+      "Mostly Harmless Compilers",
+      "How to Think Like a Computer Scientist",
+      "Beautiful Algorithms",
+      "The Hacker Guide to Coding",
+      "Languages and Computation"
+    ]
+  },
+  "research": {
+    "prompt": "grep -r \"neurosymbolic\" ~/research/",
+    "introHtml": "My PhD was on knowledge discovery for natural language. These days I work on <span class=\"amber\">neurosymbolic architectures</span> — getting LLMs to cooperate with structured knowledge, symbolic solvers, and classical AI. Find the papers on:",
+    "links": [
+      {
+        "label": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user="
+      },
+      {
+        "label": "ORCID · 0000-0001-9522-3239",
+        "url": "https://orcid.org/0000-0001-9522-3239"
+      },
+      { "label": "DBLP", "url": "https://dblp.org" },
+      { "label": "CV (PDF)", "url": "cv.pdf" }
+    ]
+  },
+  "projects": {
+    "prompt": "gh repo list apiad --limit 30 --sort updated",
+    "githubUser": "apiad",
+    "countLabel": "92 repos",
+    "pageSize": 6,
+    "pages": 5,
+    "seed": [
+      {
+        "name": "beaver",
+        "owner": "syalia-srl",
+        "desc": "All-in-one pure-python embedded DB for relational, document, vector, graph & event data on SQLite.",
+        "lang": "Python",
+        "stars": 35,
+        "forks": 10
+      },
+      {
+        "name": "opencode",
+        "owner": "apiad",
+        "desc": "Powerful setup for AI-powered repositories.",
+        "lang": "Shell",
+        "stars": 21,
+        "forks": 4
+      },
+      {
+        "name": "tesserax",
+        "owner": "apiad",
+        "desc": "A Pythonic library for scientific visualization in SVG.",
+        "lang": "Python",
+        "stars": 19,
+        "forks": 2
+      },
+      {
+        "name": "illiterate",
+        "owner": "apiad",
+        "desc": "Unobtrusive literate programming experience for pragmatists.",
+        "lang": "Rust",
+        "stars": 17,
+        "forks": 3
+      },
+      {
+        "name": "violetear",
+        "owner": "apiad",
+        "desc": "The full-stack web framework for Pythonistas.",
+        "lang": "Python",
+        "stars": 12,
+        "forks": 2
+      },
+      {
+        "name": "lingo",
+        "owner": "gia-uh",
+        "desc": "A Python library for context engineering.",
+        "lang": "Python",
+        "stars": 4,
+        "forks": 3
+      }
+    ],
+    "placeholderTags": [
+      "autogoal",
+      "ehealthkd",
+      "knowledge-graph",
+      "pydsl",
+      "micro-nlp",
+      "grammar-tools",
+      "semantic-probe",
+      "symbolic-llm",
+      "havana-bench",
+      "pytree",
+      "tiny-rag",
+      "embedding-lab",
+      "cortex",
+      "mindful",
+      "tfidf-redux",
+      "lexer-101",
+      "prolog-ish",
+      "gia-corpus",
+      "kb-export",
+      "notepad",
+      "paperclip",
+      "agent-cli",
+      "compiler-toys",
+      "snippets"
+    ],
+    "placeholderOwners": ["gia-uh", "syalia-srl", "apiad"]
+  },
+  "talks": {
+    "prompt": "cat talks.log | sort -r",
+    "items": [
+      {
+        "date": "2025",
+        "title": "Neurosymbolic reasoning in the age of LLMs",
+        "subtitle": "Invited keynote · LatinX in AI @ NeurIPS",
+        "action": "SLIDES",
+        "url": "#"
+      },
+      {
+        "date": "2024",
+        "title": "AutoGOAL: evolutionary AutoML for low-resource teams",
+        "subtitle": "Knowledge-Based Systems · Elsevier",
+        "action": "PAPER",
+        "url": "#"
+      },
+      {
+        "date": "2024",
+        "title": "Teaching AI in the global south",
+        "subtitle": "Workshop · AAAI Educational Track",
+        "action": "PAPER",
+        "url": "#"
+      },
+      {
+        "date": "2023",
+        "title": "eHealth-KD: knowledge discovery for Spanish health text",
+        "subtitle": "IberLEF shared task · co-organizer",
+        "action": "PAPER",
+        "url": "#"
+      },
+      {
+        "date": "2022",
+        "title": "A semantic framework for knowledge graph extraction",
+        "subtitle": "Natural Language Engineering",
+        "action": "PAPER",
+        "url": "#"
+      }
+    ]
+  },
+  "elsewhere": {
+    "prompt": "curl -s apiad.net/links | jq .",
+    "links": [
+      { "label": "Substack", "url": "https://blog.apiad.net" },
+      { "label": "GitHub", "url": "https://github.com/apiad" },
+      { "label": "LinkedIn", "url": "https://linkedin.com/in/apiad" },
+      { "label": "Google&nbsp;Scholar", "url": "https://scholar.google.com" },
+      { "label": "ORCID", "url": "https://orcid.org/0000-0001-9522-3239" },
+      { "label": "Telegram", "url": "https://t.me/apiad" },
+      { "label": "Bluesky", "url": "https://bsky.app/profile/apiad.net" },
+      { "label": "X / Twitter", "url": "https://twitter.com/alepiad" },
+      { "label": "hello@apiad.net", "url": "mailto:hello@apiad.net" }
+    ],
+    "footer": {
+      "copy": "© 2026 Alejandro Piad Morffis · Havana 🇨🇺",
+      "tagline": "made with ai in havana, cuba"
+    },
+    "followCta": {
+      "text": "follow me",
+      "url": "https://blog.apiad.net/subscribe"
+    }
+  },
+  "matrixRain": {
+    "words": [
+      "AI",
+      "LLM",
+      "CODE",
+      "PYTHON",
+      "RUST",
+      "LISP",
+      "PROLOG",
+      "HACK",
+      "LOGIC",
+      "NEURO",
+      "SYMBOL",
+      "COMPILE",
+      "GRAPH",
+      "RAG",
+      "HAVANA",
+      "APIAD",
+      "ENTROPY",
+      "LAMBDA",
+      "TOKEN"
+    ]
+  },
+  "followRotator": {
+    "words": [
+      "research",
+      "coding tips",
+      "unhyped ai news",
+      "hot takes",
+      "neurosymbolic ai",
+      "compiler trivia",
+      "havana dispatches",
+      "deep dives",
+      "occasional rants"
+    ]
+  },
+  "localTime": {
+    "label": "havana",
+    "utcOffsetHours": -4
+  }
+}
