@@ -161,14 +161,21 @@
   }
 
   function renderPublications(){
-    // The list is populated at runtime from OpenAlex (see initPublications
-    // below). The initial render is a loading skeleton with a link back to
-    // Google Scholar so the reader has somewhere to go if the fetch fails.
     const limit = data.publications.limit || 20;
+    const pageSize = data.publications.pageSize || 5;
+    const pages = Math.max(1, Math.ceil(limit / pageSize));
     return `
         <p class="sh-line"><span class="tag">##</span> <span class="arg">Publications</span> <span class="muted">— top ${limit} by citations · via <a href="https://openalex.org/authors/orcid:${data.publications.orcid}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">OpenAlex</a> · <a href="https://scholar.google.com/citations?user=4P9BS6QAAAAJ" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none">scholar</a></span></p>
-        <div class="rows" id="pub-rows" data-pub-loading="1">
-          <p class="ln prompt" style="color:var(--muted);margin:8px 0">loading publications…</p>
+        <div class="pub-carousel" id="pub-carousel">
+          <div class="rows" id="pub-rows" aria-live="polite" data-pub-loading="1">
+            <p class="ln prompt" style="color:var(--muted);margin:8px 0">loading publications…</p>
+          </div>
+          <div class="now-ctrl">
+            <button class="now-btn" data-pub="prev" aria-label="Previous page">‹</button>
+            <div class="now-dots" id="pub-dots"></div>
+            <button class="now-btn" data-pub="next" aria-label="Next page">›</button>
+            <span class="now-idx" id="pub-idx">1/${pages}</span>
+          </div>
         </div>
       `;
   }
@@ -781,19 +788,65 @@
 
   async function initPublications(root){
     root.dataset.inited = '1';
-    async function paint(items){
-      if(!items || !items.length){
+    const carousel = root.closest('.pub-carousel');
+    const dotsWrap = carousel && carousel.querySelector('#pub-dots');
+    const idxEl    = carousel && carousel.querySelector('#pub-idx');
+    const prevBtn  = carousel && carousel.querySelector('[data-pub="prev"]');
+    const nextBtn  = carousel && carousel.querySelector('[data-pub="next"]');
+    const pageSize = data.publications.pageSize || 5;
+
+    let items = [];
+    let page = 0;
+    let pages = 1;
+    let timer = null;
+    let paused = false;
+
+    function renderPage(){
+      const slice = items.slice(page*pageSize, page*pageSize + pageSize);
+      root.innerHTML = slice.map(renderPubRow).join('');
+      if(dotsWrap) [...dotsWrap.children].forEach((d,k)=>d.classList.toggle('on', k===page));
+      if(idxEl) idxEl.textContent = (page+1)+'/'+pages;
+    }
+    function go(p){ page = (p + pages) % pages; renderPage(); }
+    function restart(){ if(timer) clearInterval(timer); timer = setInterval(()=>{ if(!paused) go(page+1); }, 9000); }
+
+    function paint(list){
+      items = list || [];
+      if(items.length === 0){
         root.innerHTML = `<p class="ln prompt" style="color:var(--warn);margin:8px 0">Could not load publications. Try <a href="https://scholar.google.com/citations?user=4P9BS6QAAAAJ" target="_blank" rel="noopener" style="color:var(--accent)">scholar</a> directly.</p>`;
-      } else {
-        root.innerHTML = items.map(renderPubRow).join('');
+        if(carousel){
+          // hide controls when there's nothing to paginate
+          const ctrl = carousel.querySelector('.now-ctrl');
+          if(ctrl) ctrl.style.display = 'none';
+        }
+        root.removeAttribute('data-pub-loading');
+        return;
+      }
+      pages = Math.max(1, Math.ceil(items.length / pageSize));
+      if(dotsWrap){
+        dotsWrap.innerHTML = '';
+        for(let p=0; p<pages; p++){
+          const d = document.createElement('i');
+          d.addEventListener('click', ()=>{ go(p); restart(); });
+          dotsWrap.appendChild(d);
+        }
+      }
+      if(prevBtn) prevBtn.addEventListener('click', ()=>{ go(page-1); restart(); });
+      if(nextBtn) nextBtn.addEventListener('click', ()=>{ go(page+1); restart(); });
+      if(carousel){
+        carousel.addEventListener('mouseenter', ()=>{ paused = true; });
+        carousel.addEventListener('mouseleave', ()=>{ paused = false; });
       }
       root.removeAttribute('data-pub-loading');
+      renderPage();
+      if(pages > 1) restart();
     }
+
     const cached = loadPubCache();
     if(cached){ paint(cached); return; }
-    const items = await fetchPublicationsLive();
-    if(items) savePubCache(items);
-    paint(items);
+    const list = await fetchPublicationsLive();
+    if(list) savePubCache(list);
+    paint(list);
   }
 
   // ---- scroll-triggered playback --------------------------------------

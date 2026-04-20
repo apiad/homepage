@@ -185,6 +185,7 @@
     "prompt": "openalex works --orcid 0000-0001-9522-3239 --sort citations --limit 20",
     "orcid": "0000-0001-9522-3239",
     "limit": 20,
+    "pageSize": 5,
     "contactEmail": "apiad@apiad.net"
   },
   "elsewhere": {
