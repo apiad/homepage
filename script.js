@@ -1,6 +1,9 @@
 /* =========================================================
    apiad.net — terminal build-up
-   Content lives in data.json; this file is presentation only.
+   Editorial content lives in data.json (hand-curated).
+   Dynamic content lives in live.json (refreshed daily by the
+   github action .github/workflows/refresh-live-data.yml).
+   This file is presentation only — no upstream API calls.
    Each section is a "scene": a prompt types in, pauses, runs,
    prints output. First scene runs on load. Each subsequent
    scene runs when it scrolls into view (once).
@@ -9,9 +12,17 @@
 (async function main(){
 
   // ---- data load ------------------------------------------------------
-  const data = await fetch('./data.json', {cache:'no-cache'})
-    .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
-    .catch(err => { console.error('apiad: failed to load data.json', err); return null; });
+  // data.json is required (page can't render without it). live.json is
+  // optional — if it's missing (first deploy before the workflow runs)
+  // the dynamic sections show empty-state messages but the page still works.
+  const [data, live] = await Promise.all([
+    fetch('./data.json', {cache:'no-cache'})
+      .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
+      .catch(err => { console.error('apiad: failed to load data.json', err); return null; }),
+    fetch('./live.json', {cache:'no-cache'})
+      .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
+      .catch(err => { console.warn('apiad: no live.json yet — dynamic sections will be empty', err); return {repos:{}, publications:[], writing:[]}; }),
+  ]);
 
   if(!data){
     const body = document.getElementById('body');
@@ -91,15 +102,21 @@
   }
 
   function renderWriting(){
-    const rows = data.writing.posts.map(p => `
-          <a class="row" href="${p.url}">
-            <span class="date">${p.date}</span>
-            <span class="title">${p.title}<small>${p.subtitle}</small></span>
-            <span class="arrow">READ →</span>
-          </a>`).join('');
+    const limit = data.writing.limit || 10;
+    const pageSize = data.writing.pageSize || 5;
+    const pages = Math.max(1, Math.ceil(limit / pageSize));
     return `
-        <p class="sh-line"><span class="tag">##</span> <span class="arg">Writing</span> <span class="muted">— <a href="${data.writing.blogUrl}" style="color:var(--accent);text-decoration:none">blog.apiad.net</a> · ${data.writing.subscribersLabel}</span></p>
-        <div class="rows">${rows}
+        <p class="sh-line"><span class="tag">##</span> <span class="arg">Writing</span> <span class="muted">— <a href="${data.writing.blogUrl}" style="color:var(--accent);text-decoration:none">blog.apiad.net</a> · ${data.writing.subscribersLabel} · top ${limit} most-loved</span></p>
+        <div class="writ-carousel" id="writ-carousel">
+          <div class="rows" id="writ-rows" aria-live="polite" data-writ-loading="1">
+            <p class="ln prompt" style="color:var(--muted);margin:8px 0">loading top posts…</p>
+          </div>
+          <div class="now-ctrl">
+            <button class="now-btn" data-writ="prev" aria-label="Previous page">‹</button>
+            <div class="now-dots" id="writ-dots"></div>
+            <button class="now-btn" data-writ="next" aria-label="Next page">›</button>
+            <span class="now-idx" id="writ-idx">1/${pages}</span>
+          </div>
         </div>
       `;
   }
@@ -344,6 +361,8 @@
       if(rain && !rain.dataset.inited){ initMatrixRain(rain); }
       const pubs = block.querySelector('#pub-rows');
       if(pubs && !pubs.dataset.inited){ initPublications(pubs); }
+      const writ = block.querySelector('#writ-rows');
+      if(writ && !writ.dataset.inited){ initWriting(writ); }
       await sleep(260);
     }
   }
@@ -533,121 +552,39 @@
   }
 
   // ---- repo carousel -------------------------------------------------
-  // Curated list of {owner, name} in display order. On load, we render
-  // skeleton cards immediately (name only), then upgrade each with live
-  // GitHub data — language, description, stars, forks. Live data is
-  // cached in localStorage for 24h, keyed by a hash of the curated list
-  // so edits to data.json invalidate the cache automatically.
+  // Curated list of {owner, name} in display order from data.json.
+  // Live metadata (desc, lang, stars, forks) comes from live.json —
+  // refreshed nightly by .github/workflows/refresh-live-data.yml.
   const CURATED = data.projects.curated || [];
   const PAGE_SIZE = data.projects.pageSize || 6;
   const PAGES     = Math.max(1, Math.ceil(CURATED.length / PAGE_SIZE));
-  const CACHE_KEY = 'apiad.homepage.repos.v1';
-  const CACHE_TTL_MS = 24*60*60*1000;
 
-  function curatedHash(){
-    return CURATED.map(c => c.owner+'/'+c.name).join('|');
-  }
-
-  function loadRepoCache(){
-    try{
-      const raw = localStorage.getItem(CACHE_KEY);
-      if(!raw) return null;
-      const c = JSON.parse(raw);
-      if(!c || !c.ts || !c.byKey) return null;
-      if(Date.now() - c.ts > CACHE_TTL_MS) return null;
-      if(c.hash !== curatedHash()) return null;
-      return c.byKey;
-    }catch(e){ return null; }
-  }
-
-  function saveRepoCache(byKey){
-    try{
-      localStorage.setItem(CACHE_KEY, JSON.stringify({
-        ts: Date.now(),
-        hash: curatedHash(),
-        byKey,
-      }));
-    }catch(e){ /* full or disabled; fine */ }
-  }
-
-  function ghRepoShape(x){
-    return {
-      desc:  x.description || '',
-      lang:  x.language || '',
-      stars: x.stargazers_count || 0,
-      forks: x.forks_count || 0,
-    };
-  }
-
-  // Fetch live data for the curated list.
-  // Strategy: group curated entries by owner. If an owner appears ≥2
-  // times, use ONE bulk call `/users/{owner}/repos?per_page=100`; if
-  // only once (singleton), use the per-repo `/repos/{owner}/{name}`
-  // endpoint. This keeps total request count near log(n) in owner
-  // count rather than n in repo count — stays well under the 60/hr
-  // unauthenticated GitHub API quota.
-  async function fetchCuratedLive(){
-    const byOwner = new Map();
-    for(const c of CURATED){
-      if(!byOwner.has(c.owner)) byOwner.set(c.owner, new Set());
-      byOwner.get(c.owner).add(c.name);
-    }
-
-    const results = {};
-    await Promise.all([...byOwner.entries()].map(async ([owner, namesSet]) => {
-      const names = [...namesSet];
-      const useBulk = names.length >= 2;
-      try{
-        if(useBulk){
-          const r = await fetch(`https://api.github.com/users/${owner}/repos?per_page=100`,
-                                {headers:{'Accept':'application/vnd.github+json'}});
-          if(!r.ok) return;
-          const arr = await r.json();
-          for(const repo of arr){
-            if(namesSet.has(repo.name)){
-              results[owner+'/'+repo.name] = ghRepoShape(repo);
-            }
-          }
-        } else {
-          const name = names[0];
-          const r = await fetch(`https://api.github.com/repos/${owner}/${name}`,
-                                {headers:{'Accept':'application/vnd.github+json'}});
-          if(!r.ok) return;
-          const repo = await r.json();
-          results[owner+'/'+name] = ghRepoShape(repo);
-        }
-      }catch(e){ /* tolerated; this owner's repos stay on stub */ }
-    }));
-    return results;
-  }
-
-  function buildReposFromLive(byKey){
+  function buildRepos(){
+    const byKey = (live && live.repos) || {};
     return CURATED.map(c => {
-      const live = byKey[c.owner+'/'+c.name] || null;
+      const lv = byKey[c.owner+'/'+c.name] || null;
       return {
         owner: c.owner,
         name:  c.name,
-        desc:  live ? live.desc  : '',
-        lang:  live ? live.lang  : '',
-        stars: live ? live.stars : null,
-        forks: live ? live.forks : null,
-        _loading: !live,
+        desc:  lv ? lv.desc  : '',
+        lang:  lv ? lv.lang  : '',
+        stars: lv ? lv.stars : null,
+        forks: lv ? lv.forks : null,
+        _stub: !lv,
       };
     });
   }
-
-  // Initial skeleton — just owner/name, everything else marked loading.
-  let REPOS = buildReposFromLive({});
+  const REPOS = buildRepos();
 
   function repoCard(r){
     const h3 = r.owner && r.owner !== 'apiad'
       ? `<span class="scope">${r.owner}/</span>${r.name}`
       : r.name;
     const url = `https://github.com/${r.owner||'apiad'}/${r.name}`;
-    const loading = r._loading ? ' data-ph="1"' : '';
+    const stub = r._stub ? ' data-ph="1"' : '';
     const stars = r.stars == null ? '—' : r.stars;
     const forks = r.forks == null ? '—' : r.forks;
-    return `<a class="card"${loading} href="${url}" target="_blank" rel="noopener">
+    return `<a class="card"${stub} href="${url}" target="_blank" rel="noopener">
       <span class="lang" data-l="${r.lang||''}">${r.lang||''}</span>
       <h3>${h3}</h3>
       <p>${r.desc||'—'}</p>
@@ -685,97 +622,71 @@
 
     render(); restart();
 
-    // Upgrade with live data: cache first, network fallback.
-    (async () => {
-      const cached = loadRepoCache();
-      if(cached){
-        REPOS = buildReposFromLive(cached);
-        updateCount(cached);
-        render();
-        return;
-      }
-      const byKey = await fetchCuratedLive();
-      REPOS = buildReposFromLive(byKey);
-      saveRepoCache(byKey);
-      updateCount(byKey);
-      render();
-    })().catch(()=>{});
-  }
-
-  function updateCount(byKey){
+    // Section count in the section header
     const cnt = document.getElementById('gh-count');
-    if(!cnt) return;
-    const hits = CURATED.filter(c => byKey[c.owner+'/'+c.name]).length;
-    cnt.textContent = hits + ' featured';
+    if(cnt){
+      const hits = REPOS.filter(r => !r._stub).length;
+      cnt.textContent = hits + ' featured';
+    }
   }
 
-  // ---- publications (OpenAlex) ---------------------------------------
-  // Fetch the top-N most-cited works for the given ORCID from OpenAlex,
-  // cache in localStorage for 24h (same pattern as repos). OpenAlex has
-  // CORS enabled and a generous public rate limit; the `mailto` param is
-  // the convention for getting into their "polite pool" with better
-  // priority on rate limits.
-  const PUB_CACHE_KEY = 'apiad.homepage.publications.v1';
-  const PUB_CACHE_TTL_MS = 24*60*60*1000;
+  // ---- paginated-list helper ----------------------------------------
+  // Generic carousel: takes a root (.rows container), a list of items,
+  // a row renderer, and selectors for the enclosing carousel controls.
+  // Used by both publications and writing. Keeps the DRY of pagination
+  // logic; each section brings its own renderer.
+  function mountPaginatedList(root, items, rowRender, opts){
+    const { carouselSel, prevSel, nextSel, dotsSel, idxSel, pageSize, rotateMs, emptyHtml } = opts;
+    const carousel = root.closest(carouselSel);
+    const dotsWrap = carousel && carousel.querySelector(dotsSel);
+    const idxEl    = carousel && carousel.querySelector(idxSel);
+    const prevBtn  = carousel && carousel.querySelector(prevSel);
+    const nextBtn  = carousel && carousel.querySelector(nextSel);
 
-  function loadPubCache(){
-    try{
-      const raw = localStorage.getItem(PUB_CACHE_KEY);
-      if(!raw) return null;
-      const c = JSON.parse(raw);
-      if(!c || !c.ts || !Array.isArray(c.items)) return null;
-      if(Date.now() - c.ts > PUB_CACHE_TTL_MS) return null;
-      if(c.orcid !== data.publications.orcid) return null;
-      if(c.limit !== (data.publications.limit || 20)) return null;
-      return c.items;
-    }catch(e){ return null; }
+    items = items || [];
+    if(items.length === 0){
+      root.innerHTML = emptyHtml;
+      if(carousel){
+        const ctrl = carousel.querySelector('.now-ctrl');
+        if(ctrl) ctrl.style.display = 'none';
+      }
+      return;
+    }
+    const pages = Math.max(1, Math.ceil(items.length / pageSize));
+    let page = 0, timer = null, paused = false;
+
+    function renderPage(){
+      const slice = items.slice(page*pageSize, page*pageSize + pageSize);
+      root.innerHTML = slice.map(rowRender).join('');
+      if(dotsWrap) [...dotsWrap.children].forEach((d,k)=>d.classList.toggle('on', k===page));
+      if(idxEl) idxEl.textContent = (page+1)+'/'+pages;
+    }
+    function go(p){ page = (p + pages) % pages; renderPage(); }
+    function restart(){ if(timer) clearInterval(timer); timer = setInterval(()=>{ if(!paused) go(page+1); }, rotateMs); }
+
+    if(dotsWrap){
+      dotsWrap.innerHTML = '';
+      for(let p=0; p<pages; p++){
+        const d = document.createElement('i');
+        d.addEventListener('click', ()=>{ go(p); restart(); });
+        dotsWrap.appendChild(d);
+      }
+    }
+    if(prevBtn) prevBtn.addEventListener('click', ()=>{ go(page-1); restart(); });
+    if(nextBtn) nextBtn.addEventListener('click', ()=>{ go(page+1); restart(); });
+    if(carousel){
+      carousel.addEventListener('mouseenter', ()=>{ paused = true; });
+      carousel.addEventListener('mouseleave', ()=>{ paused = false; });
+    }
+    renderPage();
+    if(pages > 1) restart();
   }
 
-  function savePubCache(items){
-    try{
-      localStorage.setItem(PUB_CACHE_KEY, JSON.stringify({
-        ts: Date.now(),
-        orcid: data.publications.orcid,
-        limit: data.publications.limit || 20,
-        items,
-      }));
-    }catch(e){}
-  }
-
-  function shapeOpenAlexWork(w){
-    const authors = (w.authorships || [])
-      .map(a => a.author && a.author.display_name)
-      .filter(Boolean);
-    const venue = w.primary_location && w.primary_location.source
-      ? w.primary_location.source.display_name
-      : '';
-    const url = w.doi ? ('https://doi.org/' + String(w.doi).replace(/^https?:\/\/(dx\.)?doi\.org\//,'')) : w.id;
-    return {
-      title: w.title || w.display_name || '(untitled)',
-      year: w.publication_year || '',
-      citations: w.cited_by_count || 0,
-      authors,
-      venue,
-      type: (w.type || '').replace(/-/g,' '),
-      url,
-    };
-  }
-
-  async function fetchPublicationsLive(){
-    const orcid = data.publications.orcid;
-    const limit = data.publications.limit || 20;
-    const mailto = data.publications.contactEmail ? '&mailto=' + encodeURIComponent(data.publications.contactEmail) : '';
-    const url = `https://api.openalex.org/works?filter=author.orcid:${orcid}&sort=cited_by_count:desc&per-page=${limit}${mailto}`;
-    try{
-      const r = await fetch(url, {headers:{'Accept':'application/json'}});
-      if(!r.ok) return null;
-      const j = await r.json();
-      return (j.results || []).map(shapeOpenAlexWork);
-    }catch(e){ return null; }
-  }
-
+  // ---- publications ---------------------------------------------------
+  // Top-N most-cited works for the author's ORCID. Data comes from
+  // live.publications (written nightly by the github action).
   function renderPubRow(p){
-    const authors = p.authors.slice(0, 3).join(', ') + (p.authors.length > 3 ? ', et al.' : '');
+    const authors = (p.authors || []).slice(0, 3).join(', ') + ((p.authors || []).length > 3 ? ', et al.' : '');
     const small = [authors, p.venue].filter(Boolean).join(' · ');
     const cite = p.citations >= 1 ? `${p.citations}×` : '—';
     return `
@@ -786,67 +697,57 @@
           </a>`;
   }
 
-  async function initPublications(root){
+  function initPublications(root){
     root.dataset.inited = '1';
-    const carousel = root.closest('.pub-carousel');
-    const dotsWrap = carousel && carousel.querySelector('#pub-dots');
-    const idxEl    = carousel && carousel.querySelector('#pub-idx');
-    const prevBtn  = carousel && carousel.querySelector('[data-pub="prev"]');
-    const nextBtn  = carousel && carousel.querySelector('[data-pub="next"]');
-    const pageSize = data.publications.pageSize || 5;
+    root.removeAttribute('data-pub-loading');
+    mountPaginatedList(root, (live && live.publications) || [], renderPubRow, {
+      carouselSel: '.pub-carousel',
+      prevSel: '[data-pub="prev"]',
+      nextSel: '[data-pub="next"]',
+      dotsSel: '#pub-dots',
+      idxSel:  '#pub-idx',
+      pageSize: data.publications.pageSize || 5,
+      rotateMs: 9000,
+      emptyHtml: `<p class="ln prompt" style="color:var(--warn);margin:8px 0">Publications unavailable — <code>live.json</code> is missing or empty. Try <a href="https://scholar.google.com/citations?user=4P9BS6QAAAAJ" target="_blank" rel="noopener" style="color:var(--accent)">scholar</a>.</p>`,
+    });
+  }
 
-    let items = [];
-    let page = 0;
-    let pages = 1;
-    let timer = null;
-    let paused = false;
+  // ---- writing (Substack top-posts) ----------------------------------
+  // Top-N most-loved posts from the blog. Data comes from live.writing
+  // (written nightly by the github action). Display: date · title +
+  // subtitle · reaction-count-with-heart.
+  const MONTHS = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  function formatPostDate(iso){
+    if(!iso) return '';
+    const d = new Date(iso);
+    if(isNaN(d.getTime())) return '';
+    return d.getUTCFullYear() + ' · ' + MONTHS[d.getUTCMonth()];
+  }
 
-    function renderPage(){
-      const slice = items.slice(page*pageSize, page*pageSize + pageSize);
-      root.innerHTML = slice.map(renderPubRow).join('');
-      if(dotsWrap) [...dotsWrap.children].forEach((d,k)=>d.classList.toggle('on', k===page));
-      if(idxEl) idxEl.textContent = (page+1)+'/'+pages;
-    }
-    function go(p){ page = (p + pages) % pages; renderPage(); }
-    function restart(){ if(timer) clearInterval(timer); timer = setInterval(()=>{ if(!paused) go(page+1); }, 9000); }
+  function renderWritingRow(p){
+    const sub = (p.subtitle || '').trim();
+    const love = p.reactions >= 1 ? `${p.reactions} ♥` : 'READ';
+    return `
+          <a class="row" href="${p.url}" target="_blank" rel="noopener">
+            <span class="date">${formatPostDate(p.date)}</span>
+            <span class="title">${p.title}${sub ? `<small>${sub}</small>` : ''}</span>
+            <span class="arrow">${love} →</span>
+          </a>`;
+  }
 
-    function paint(list){
-      items = list || [];
-      if(items.length === 0){
-        root.innerHTML = `<p class="ln prompt" style="color:var(--warn);margin:8px 0">Could not load publications. Try <a href="https://scholar.google.com/citations?user=4P9BS6QAAAAJ" target="_blank" rel="noopener" style="color:var(--accent)">scholar</a> directly.</p>`;
-        if(carousel){
-          // hide controls when there's nothing to paginate
-          const ctrl = carousel.querySelector('.now-ctrl');
-          if(ctrl) ctrl.style.display = 'none';
-        }
-        root.removeAttribute('data-pub-loading');
-        return;
-      }
-      pages = Math.max(1, Math.ceil(items.length / pageSize));
-      if(dotsWrap){
-        dotsWrap.innerHTML = '';
-        for(let p=0; p<pages; p++){
-          const d = document.createElement('i');
-          d.addEventListener('click', ()=>{ go(p); restart(); });
-          dotsWrap.appendChild(d);
-        }
-      }
-      if(prevBtn) prevBtn.addEventListener('click', ()=>{ go(page-1); restart(); });
-      if(nextBtn) nextBtn.addEventListener('click', ()=>{ go(page+1); restart(); });
-      if(carousel){
-        carousel.addEventListener('mouseenter', ()=>{ paused = true; });
-        carousel.addEventListener('mouseleave', ()=>{ paused = false; });
-      }
-      root.removeAttribute('data-pub-loading');
-      renderPage();
-      if(pages > 1) restart();
-    }
-
-    const cached = loadPubCache();
-    if(cached){ paint(cached); return; }
-    const list = await fetchPublicationsLive();
-    if(list) savePubCache(list);
-    paint(list);
+  function initWriting(root){
+    root.dataset.inited = '1';
+    root.removeAttribute('data-writ-loading');
+    mountPaginatedList(root, (live && live.writing) || [], renderWritingRow, {
+      carouselSel: '.writ-carousel',
+      prevSel: '[data-writ="prev"]',
+      nextSel: '[data-writ="next"]',
+      dotsSel: '#writ-dots',
+      idxSel:  '#writ-idx',
+      pageSize: data.writing.pageSize || 5,
+      rotateMs: 9000,
+      emptyHtml: `<p class="ln prompt" style="color:var(--warn);margin:8px 0">Recent posts unavailable. Visit <a href="${data.writing.blogUrl || 'https://blog.apiad.net'}" target="_blank" rel="noopener" style="color:var(--accent)">${(data.writing.blogUrl || 'blog.apiad.net').replace(/^https?:\/\//,'')}</a> directly.</p>`,
+    });
   }
 
   // ---- scroll-triggered playback --------------------------------------

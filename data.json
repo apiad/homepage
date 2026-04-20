@@ -45,47 +45,12 @@
     ]
   },
   "writing": {
-    "prompt": "ls -lah ~/writing | head -7",
+    "prompt": "substack archive --sort top --limit 10",
     "blogUrl": "https://blog.apiad.net",
     "subscribersLabel": "6,000+ subscribers",
-    "posts": [
-      {
-        "date": "2026 · mar",
-        "title": "Why neurosymbolic AI is having its moment, again",
-        "subtitle": "On the third wave of hybrid reasoning systems.",
-        "url": "https://blog.apiad.net"
-      },
-      {
-        "date": "2026 · feb",
-        "title": "The quiet return of Prolog",
-        "subtitle": "What LLM tool-use borrowed from logic programming.",
-        "url": "https://blog.apiad.net"
-      },
-      {
-        "date": "2026 · jan",
-        "title": "Teaching compilers without writing a compiler",
-        "subtitle": "A lab-first curriculum from four years at UH.",
-        "url": "https://blog.apiad.net"
-      },
-      {
-        "date": "2025 · dec",
-        "title": "A working definition of reasoning",
-        "subtitle": "Draft notes I keep returning to.",
-        "url": "https://blog.apiad.net"
-      },
-      {
-        "date": "2025 · nov",
-        "title": "Context engineering isn't prompt engineering",
-        "subtitle": "Why I built a whole library around it.",
-        "url": "https://blog.apiad.net"
-      },
-      {
-        "date": "2025 · oct",
-        "title": "Small models, sharp tools",
-        "subtitle": "Why I keep coming back to 1-3B parameter models for teaching.",
-        "url": "https://blog.apiad.net"
-      }
-    ]
+    "limit": 10,
+    "sort": "top",
+    "pageSize": 5
   },
   "library": {
     "prompt": "ls ~/library/",
@@ -193,13 +158,11 @@
     "links": [
       { "label": "Substack", "url": "https://blog.apiad.net" },
       { "label": "GitHub", "url": "https://github.com/apiad" },
-      { "label": "LinkedIn", "url": "https://linkedin.com/in/apiad" },
-      { "label": "Google&nbsp;Scholar", "url": "https://scholar.google.com" },
       { "label": "ORCID", "url": "https://orcid.org/0000-0001-9522-3239" },
+      { "label": "Google&nbsp;Scholar", "url": "https://scholar.google.com/citations?user=4P9BS6QAAAAJ&hl=en" },
+      { "label": "LinkedIn", "url": "https://linkedin.com/in/apiad" },
       { "label": "Telegram", "url": "https://t.me/apiad" },
-      { "label": "Bluesky", "url": "https://bsky.app/profile/apiad.net" },
-      { "label": "X / Twitter", "url": "https://twitter.com/alepiad" },
-      { "label": "hello@apiad.net", "url": "mailto:hello@apiad.net" }
+      { "label": "X / Twitter", "url": "https://twitter.com/alepiad" }
     ],
     "footer": {
       "copy": "© 2026 Alejandro Piad Morffis · Havana 🇨🇺",
