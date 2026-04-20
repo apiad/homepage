@@ -3,9 +3,9 @@
     "name": "Alejandro Piad Morffis",
     "avatarUrl": "./avatar.jpg",
     "bootComment": "# apiad.net · v4.2 — made with ai in havana, cuba",
-    "whoami": "alejandro piad morffis — computer scientist, educator, neurosymbolic-ai researcher.",
+    "whoami": "alejandro piad morffis — computer scientist, educator, ai researcher, writer, & dad of two gremlims.",
     "unameHtml": "apiad <span class=\"muted\">5.18.0-havana-cu</span> <span class=\"green\">#1 SMP</span> <span class=\"amber\">PhD CS · tenured · univ. of havana</span>",
-    "taglineHtml": "<b>Tenured Professor</b> of Computer Science, Univ. of Havana · <b>Neurosymbolic AI</b> researcher · Co-founder <b>Syalia</b> · Director <b>GIA-UH</b> · Writes <b>The Computist Journal</b>.",
+    "taglineHtml": "<b>Tenured Professor</b> of Computer Science, Univ. of Havana · <b>Neurosymbolic AI</b> researcher · Co-founder <b>Syalia</b> · Researcher at <b>GIA-UH</b> · Writes <b>The Computist Journal</b>.",
     "cta": {
       "text": "● open to collaborations",
       "href": "mailto:apiad@apiad.net"
@@ -15,7 +15,7 @@
     "prompt": "cat about.md",
     "paragraphs": [
       "I'm a computer scientist and educator living in <span class=\"amber\">Havana, Cuba</span>. I teach <span class=\"green\">Programming</span>, <span class=\"green\">Compilers</span> and <span class=\"green\">AI</span> at the University of Havana, and I research <span class=\"amber\">neurosymbolic AI</span> — the messy, beautiful frontier where <span class=\"kbd\">LLMs</span> meet classical symbolic methods.",
-      "I co-founded <span class=\"green\">Syalia</span>, where we build pragmatic AI software, and I direct <span class=\"green\">GIA-UH</span>, a research group on democratizing machine learning. I write <span class=\"amber\">The Computist Journal</span> — 6,000+ readers, mostly about how computer science actually works underneath the hype."
+      "I co-founded <span class=\"green\">Syalia</span>, where we build pragmatic AI software, and I co-lead <span class=\"green\">GIA-UH</span>, a research group on democratizing machine learning. I write <span class=\"amber\">The Computist Journal</span> — 6,000+ readers, mostly about how computer science actually works underneath the hype."
     ]
   },
   "now": {
