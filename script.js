@@ -107,7 +107,7 @@
     const pages = Math.max(1, Math.ceil(limit / pageSize));
     return `
         <p class="sh-line"><span class="tag">##</span> <span class="arg">Writing</span> <span class="muted">— <a href="${data.writing.blogUrl}" style="color:var(--accent);text-decoration:none">blog.apiad.net</a> · ${data.writing.subscribersLabel} · top ${limit} most-loved</span></p>
-        <div class="writ-carousel" id="writ-carousel">
+        <div class="writ-carousel repo-carousel" id="writ-carousel">
           <div class="rows" id="writ-rows" aria-live="polite" data-writ-loading="1">
             <p class="ln prompt" style="color:var(--muted);margin:8px 0">loading top posts…</p>
           </div>
@@ -183,7 +183,7 @@
     const pages = Math.max(1, Math.ceil(limit / pageSize));
     return `
         <p class="sh-line"><span class="tag">##</span> <span class="arg">Publications</span> <span class="muted">— top ${limit} by citations · via <a href="https://openalex.org/authors/orcid:${data.publications.orcid}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">OpenAlex</a> · <a href="https://scholar.google.com/citations?user=4P9BS6QAAAAJ" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none">scholar</a></span></p>
-        <div class="pub-carousel" id="pub-carousel">
+        <div class="pub-carousel repo-carousel" id="pub-carousel">
           <div class="rows" id="pub-rows" aria-live="polite" data-pub-loading="1">
             <p class="ln prompt" style="color:var(--muted);margin:8px 0">loading publications…</p>
           </div>
