@@ -143,15 +143,18 @@
   }
 
   function renderProjects(){
+    const curated = data.projects.curated || [];
+    const pageSize = data.projects.pageSize || 6;
+    const pages = Math.max(1, Math.ceil(curated.length / pageSize));
     return `
-        <p class="sh-line"><span class="tag">##</span> <span class="arg">Projects</span> <span class="muted">— <a href="https://github.com/${data.projects.githubUser}" style="color:var(--accent);text-decoration:none">github.com/${data.projects.githubUser}</a> · <span id="gh-count">${data.projects.countLabel}</span></span></p>
+        <p class="sh-line"><span class="tag">##</span> <span class="arg">Projects</span> <span class="muted">— <a href="https://github.com/${data.projects.githubUser}" style="color:var(--accent);text-decoration:none">github.com/${data.projects.githubUser}</a> · <span id="gh-count">${curated.length} featured</span></span></p>
         <div class="repo-carousel" id="repo-carousel">
           <div class="grid repo-grid" id="repo-grid" aria-live="polite"></div>
           <div class="now-ctrl">
             <button class="now-btn" data-repo="prev" aria-label="Previous page">‹</button>
             <div class="now-dots" id="repo-dots"></div>
             <button class="now-btn" data-repo="next" aria-label="Next page">›</button>
-            <span class="now-idx" id="repo-idx">1/${data.projects.pages}</span>
+            <span class="now-idx" id="repo-idx">1/${pages}</span>
           </div>
         </div>
       `;
@@ -522,41 +525,125 @@
   }
 
   // ---- repo carousel -------------------------------------------------
-  const REPO_SEED = data.projects.seed;
-  const PAGE_SIZE = data.projects.pageSize;
-  const PAGES     = data.projects.pages;
+  // Curated list of {owner, name} in display order. On load, we render
+  // skeleton cards immediately (name only), then upgrade each with live
+  // GitHub data — language, description, stars, forks. Live data is
+  // cached in localStorage for 24h, keyed by a hash of the curated list
+  // so edits to data.json invalidate the cache automatically.
+  const CURATED = data.projects.curated || [];
+  const PAGE_SIZE = data.projects.pageSize || 6;
+  const PAGES     = Math.max(1, Math.ceil(CURATED.length / PAGE_SIZE));
+  const CACHE_KEY = 'apiad.homepage.repos.v1';
+  const CACHE_TTL_MS = 24*60*60*1000;
 
-  // placeholder pages 2-5 — replaced once GitHub API responds
-  function seedPlaceholders(){
-    const out = [...REPO_SEED];
-    const tags = data.projects.placeholderTags;
-    const owners = data.projects.placeholderOwners;
-    for(let i=0;i<24;i++){
-      out.push({
-        name: tags[i] || 'repo-'+(i+1),
-        owner: owners[i%owners.length] || 'apiad',
-        desc: '—',
-        lang: i%2 ? 'Python' : 'TypeScript',
-        stars: Math.floor(Math.random()*30),
-        forks: Math.floor(Math.random()*6),
-        _ph: true
-      });
-    }
-    return out;
+  function curatedHash(){
+    return CURATED.map(c => c.owner+'/'+c.name).join('|');
   }
-  let REPOS = seedPlaceholders();
+
+  function loadRepoCache(){
+    try{
+      const raw = localStorage.getItem(CACHE_KEY);
+      if(!raw) return null;
+      const c = JSON.parse(raw);
+      if(!c || !c.ts || !c.byKey) return null;
+      if(Date.now() - c.ts > CACHE_TTL_MS) return null;
+      if(c.hash !== curatedHash()) return null;
+      return c.byKey;
+    }catch(e){ return null; }
+  }
+
+  function saveRepoCache(byKey){
+    try{
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        ts: Date.now(),
+        hash: curatedHash(),
+        byKey,
+      }));
+    }catch(e){ /* full or disabled; fine */ }
+  }
+
+  function ghRepoShape(x){
+    return {
+      desc:  x.description || '',
+      lang:  x.language || '',
+      stars: x.stargazers_count || 0,
+      forks: x.forks_count || 0,
+    };
+  }
+
+  // Fetch live data for the curated list.
+  // Strategy: group curated entries by owner. If an owner appears ≥2
+  // times, use ONE bulk call `/users/{owner}/repos?per_page=100`; if
+  // only once (singleton), use the per-repo `/repos/{owner}/{name}`
+  // endpoint. This keeps total request count near log(n) in owner
+  // count rather than n in repo count — stays well under the 60/hr
+  // unauthenticated GitHub API quota.
+  async function fetchCuratedLive(){
+    const byOwner = new Map();
+    for(const c of CURATED){
+      if(!byOwner.has(c.owner)) byOwner.set(c.owner, new Set());
+      byOwner.get(c.owner).add(c.name);
+    }
+
+    const results = {};
+    await Promise.all([...byOwner.entries()].map(async ([owner, namesSet]) => {
+      const names = [...namesSet];
+      const useBulk = names.length >= 2;
+      try{
+        if(useBulk){
+          const r = await fetch(`https://api.github.com/users/${owner}/repos?per_page=100`,
+                                {headers:{'Accept':'application/vnd.github+json'}});
+          if(!r.ok) return;
+          const arr = await r.json();
+          for(const repo of arr){
+            if(namesSet.has(repo.name)){
+              results[owner+'/'+repo.name] = ghRepoShape(repo);
+            }
+          }
+        } else {
+          const name = names[0];
+          const r = await fetch(`https://api.github.com/repos/${owner}/${name}`,
+                                {headers:{'Accept':'application/vnd.github+json'}});
+          if(!r.ok) return;
+          const repo = await r.json();
+          results[owner+'/'+name] = ghRepoShape(repo);
+        }
+      }catch(e){ /* tolerated; this owner's repos stay on stub */ }
+    }));
+    return results;
+  }
+
+  function buildReposFromLive(byKey){
+    return CURATED.map(c => {
+      const live = byKey[c.owner+'/'+c.name] || null;
+      return {
+        owner: c.owner,
+        name:  c.name,
+        desc:  live ? live.desc  : '',
+        lang:  live ? live.lang  : '',
+        stars: live ? live.stars : null,
+        forks: live ? live.forks : null,
+        _loading: !live,
+      };
+    });
+  }
+
+  // Initial skeleton — just owner/name, everything else marked loading.
+  let REPOS = buildReposFromLive({});
 
   function repoCard(r){
     const h3 = r.owner && r.owner !== 'apiad'
       ? `<span class="scope">${r.owner}/</span>${r.name}`
       : r.name;
     const url = `https://github.com/${r.owner||'apiad'}/${r.name}`;
-    const ph = r._ph ? ' data-ph="1"' : '';
-    return `<a class="card"${ph} href="${url}" target="_blank" rel="noopener">
+    const loading = r._loading ? ' data-ph="1"' : '';
+    const stars = r.stars == null ? '—' : r.stars;
+    const forks = r.forks == null ? '—' : r.forks;
+    return `<a class="card"${loading} href="${url}" target="_blank" rel="noopener">
       <span class="lang" data-l="${r.lang||''}">${r.lang||''}</span>
       <h3>${h3}</h3>
       <p>${r.desc||'—'}</p>
-      <div class="meta"><span class="star">${r.stars||0}</span><span class="fork">${r.forks||0}</span></div>
+      <div class="meta"><span class="star">${stars}</span><span class="fork">${forks}</span></div>
     </a>`;
   }
 
@@ -589,35 +676,29 @@
     root.addEventListener('mouseleave',()=>paused=false);
 
     render(); restart();
-    // fetch live data
-    fetchRepos().then(list=>{
-      if(!list || !list.length) return;
-      REPOS = list.slice(0, PAGE_SIZE*PAGES);
-      // top up with placeholders if fewer than needed
-      while(REPOS.length < PAGE_SIZE*PAGES) REPOS.push({name:'—', owner:data.projects.githubUser, desc:'—', lang:'', stars:0, forks:0, _ph:true});
-      const cnt = document.getElementById('gh-count');
-      if(cnt) cnt.textContent = REPOS.length+'+ repos';
+
+    // Upgrade with live data: cache first, network fallback.
+    (async () => {
+      const cached = loadRepoCache();
+      if(cached){
+        REPOS = buildReposFromLive(cached);
+        updateCount(cached);
+        render();
+        return;
+      }
+      const byKey = await fetchCuratedLive();
+      REPOS = buildReposFromLive(byKey);
+      saveRepoCache(byKey);
+      updateCount(byKey);
       render();
-    }).catch(()=>{});
+    })().catch(()=>{});
   }
 
-  async function fetchRepos(){
-    try{
-      const r = await fetch(`https://api.github.com/users/${data.projects.githubUser}/repos?per_page=100&sort=updated`, {headers:{'Accept':'application/vnd.github+json'}});
-      if(!r.ok) return null;
-      const gh = await r.json();
-      return gh
-        .filter(x=>!x.fork)
-        .sort((a,b)=> (b.stargazers_count||0) - (a.stargazers_count||0))
-        .map(x=>({
-          name: x.name,
-          owner: x.owner?.login || data.projects.githubUser,
-          desc: x.description || '—',
-          lang: x.language || '',
-          stars: x.stargazers_count||0,
-          forks: x.forks_count||0,
-        }));
-    }catch(e){ return null; }
+  function updateCount(byKey){
+    const cnt = document.getElementById('gh-count');
+    if(!cnt) return;
+    const hits = CURATED.filter(c => byKey[c.owner+'/'+c.name]).length;
+    cnt.textContent = hits + ' featured';
   }
 
   // ---- scroll-triggered playback --------------------------------------

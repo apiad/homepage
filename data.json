@@ -159,88 +159,25 @@
     ]
   },
   "projects": {
-    "prompt": "gh repo list apiad --limit 30 --sort updated",
+    "prompt": "gh repo list apiad --limit 10 --sort awesomeness",
     "githubUser": "apiad",
-    "countLabel": "92 repos",
     "pageSize": 6,
-    "pages": 5,
-    "seed": [
-      {
-        "name": "beaver",
-        "owner": "syalia-srl",
-        "desc": "All-in-one pure-python embedded DB for relational, document, vector, graph & event data on SQLite.",
-        "lang": "Python",
-        "stars": 35,
-        "forks": 10
-      },
-      {
-        "name": "opencode",
-        "owner": "apiad",
-        "desc": "Powerful setup for AI-powered repositories.",
-        "lang": "Shell",
-        "stars": 21,
-        "forks": 4
-      },
-      {
-        "name": "tesserax",
-        "owner": "apiad",
-        "desc": "A Pythonic library for scientific visualization in SVG.",
-        "lang": "Python",
-        "stars": 19,
-        "forks": 2
-      },
-      {
-        "name": "illiterate",
-        "owner": "apiad",
-        "desc": "Unobtrusive literate programming experience for pragmatists.",
-        "lang": "Rust",
-        "stars": 17,
-        "forks": 3
-      },
-      {
-        "name": "violetear",
-        "owner": "apiad",
-        "desc": "The full-stack web framework for Pythonistas.",
-        "lang": "Python",
-        "stars": 12,
-        "forks": 2
-      },
-      {
-        "name": "lingo",
-        "owner": "gia-uh",
-        "desc": "A Python library for context engineering.",
-        "lang": "Python",
-        "stars": 4,
-        "forks": 3
-      }
-    ],
-    "placeholderTags": [
-      "autogoal",
-      "ehealthkd",
-      "knowledge-graph",
-      "pydsl",
-      "micro-nlp",
-      "grammar-tools",
-      "semantic-probe",
-      "symbolic-llm",
-      "havana-bench",
-      "pytree",
-      "tiny-rag",
-      "embedding-lab",
-      "cortex",
-      "mindful",
-      "tfidf-redux",
-      "lexer-101",
-      "prolog-ish",
-      "gia-corpus",
-      "kb-export",
-      "notepad",
-      "paperclip",
-      "agent-cli",
-      "compiler-toys",
-      "snippets"
-    ],
-    "placeholderOwners": ["gia-uh", "syalia-srl", "apiad"]
+    "curated": [
+      { "owner": "gia-uh",     "name": "cecilia" },
+      { "owner": "gia-uh",     "name": "lingo" },
+      { "owner": "syalia-srl", "name": "beaver" },
+      { "owner": "apiad",      "name": "auditorium" },
+      { "owner": "apiad",      "name": "tesserax" },
+      { "owner": "apiad",      "name": "illiterate" },
+      { "owner": "apiad",      "name": "violetear" },
+      { "owner": "gia-uh",     "name": "argo" },
+      { "owner": "gia-uh",     "name": "autogoal" },
+      { "owner": "apiad",      "name": "lovelaice" },
+      { "owner": "apiad",      "name": "codesmells" },
+      { "owner": "apiad",      "name": "purely" },
+      { "owner": "apiad",      "name": "sixma" },
+      { "owner": "apiad",      "name": "manifoldx" }
+    ]
   },
   "talks": {
     "prompt": "cat talks.log | sort -r",
