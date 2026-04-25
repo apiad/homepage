@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T07:04:57.140Z",
+  "generated_at": "2026-04-25T06:21:15.903Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -150,19 +150,6 @@
       "venue": "",
       "type": "article",
       "url": "https://doi.org/10.1109/cec.2013.6557551"
-    },
-    {
-      "title": "A corpus to support eHealth Knowledge Discovery technologies",
-      "year": 2019,
-      "citations": 19,
-      "authors": [
-        "Alejandro Piad-Morffis",
-        "Yoan Gutiérrez",
-        "Rafael Muñoz"
-      ],
-      "venue": "Journal of Biomedical Informatics",
-      "type": "article",
-      "url": "https://doi.org/10.1016/j.jbi.2019.103172"
     },
     {
       "title": "Evolution strategies with thresheld convergence",
@@ -412,6 +399,22 @@
       "venue": "Companion Proceedings of the Web Conference 2022",
       "type": "article",
       "url": "https://doi.org/10.1145/3487553.3524675"
+    },
+    {
+      "title": "A Neural Network Component for Knowledge-Based Semantic Representations of Text",
+      "year": 2019,
+      "citations": 1,
+      "authors": [
+        "Alejandro Piad-Morffis",
+        "Rafael Muñoz",
+        "Yudivián Almeida-Cruz",
+        "Yoan Gutiérrez",
+        "Suilán Estévez-Velarde",
+        "Andrés Montoyo"
+      ],
+      "venue": "",
+      "type": "article",
+      "url": "https://doi.org/10.26615/978-954-452-056-4_105"
     }
   ],
   "writing": [
