@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T06:21:15.903Z",
+  "generated_at": "2026-04-26T06:59:44.268Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -471,7 +471,7 @@
       "subtitle": "The four hidden layers that separate tools that help form tools that hinder",
       "url": "https://blog.apiad.net/p/the-anatomy-of-ai-coding-agents",
       "date": "2026-04-02T13:40:59.447Z",
-      "reactions": 27,
+      "reactions": 28,
       "wordcount": 5580
     },
     {
