@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T07:35:33.090Z",
+  "generated_at": "2026-04-28T07:32:32.583Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -35,7 +35,7 @@
       "desc": "An HTML+CSS+JS generator from pure Python code",
       "lang": "Python",
       "stars": 85,
-      "forks": 14
+      "forks": 15
     },
     "apiad/castor": {
       "desc": "Minimalistic, embedded background tasks manager based on SQLite3.",
@@ -471,7 +471,7 @@
       "subtitle": "The four hidden layers that separate tools that help form tools that hinder",
       "url": "https://blog.apiad.net/p/the-anatomy-of-ai-coding-agents",
       "date": "2026-04-02T13:40:59.447Z",
-      "reactions": 28,
+      "reactions": 29,
       "wordcount": 5580
     },
     {
