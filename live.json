@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T07:48:38.072Z",
+  "generated_at": "2026-05-05T07:19:57.861Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -17,7 +17,7 @@
       "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
       "lang": "Python",
       "stars": 216,
-      "forks": 67
+      "forks": 66
     },
     "gia-uh/cecilia": {
       "desc": "The Cuban Language Model",
@@ -70,7 +70,7 @@
     "apiad/manifoldx": {
       "desc": "",
       "lang": "Python",
-      "stars": 4,
+      "stars": 5,
       "forks": 1
     },
     "apiad/purely": {
