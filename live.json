@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-06T07:36:28.216Z",
+  "generated_at": "2026-05-07T07:43:40.776Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -70,7 +70,7 @@
     "apiad/manifoldx": {
       "desc": "",
       "lang": "Python",
-      "stars": 5,
+      "stars": 6,
       "forks": 1
     },
     "apiad/purely": {
