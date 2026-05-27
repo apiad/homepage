@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T08:33:41.075Z",
+  "generated_at": "2026-05-27T08:40:05.759Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
