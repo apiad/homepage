@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T08:43:42.990Z",
+  "generated_at": "2026-05-29T08:42:48.780Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -491,12 +491,12 @@
       "wordcount": 2065
     },
     {
-      "title": "Chat with your PDF",
-      "subtitle": "Build a simple streamlit app using LLMs and vector databases to answer arbitrary questions from a PDF document",
-      "url": "https://blog.apiad.net/p/chat-with-your-pdf",
-      "date": "2024-02-10T15:44:47.975Z",
-      "reactions": 49,
-      "wordcount": 1837
+      "title": "AI is doing something weird to Science",
+      "subtitle": "In both good and bad ways, and it won't go away.",
+      "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
+      "date": "2026-05-25T12:40:28.856Z",
+      "reactions": 31,
+      "wordcount": 4881
     }
   ]
 }
