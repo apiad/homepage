@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-30T07:42:06.751Z",
+  "generated_at": "2026-05-31T08:16:15.671Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -10,7 +10,7 @@
     "gia-uh/argo": {
       "desc": "Agent-based Reasoning, Governance, and Orchestration",
       "lang": "Python",
-      "stars": 23,
+      "stars": 24,
       "forks": 3
     },
     "gia-uh/autogoal": {
@@ -22,7 +22,7 @@
     "gia-uh/cecilia": {
       "desc": "The Cuban Language Model",
       "lang": "TeX",
-      "stars": 27,
+      "stars": 28,
       "forks": 0
     },
     "gia-uh/lingo": {
@@ -471,7 +471,7 @@
       "subtitle": "The four hidden layers that separate tools that help form tools that hinder",
       "url": "https://blog.apiad.net/p/the-anatomy-of-ai-coding-agents",
       "date": "2026-04-02T13:40:59.447Z",
-      "reactions": 29,
+      "reactions": 30,
       "wordcount": 5580
     },
     {
@@ -483,20 +483,20 @@
       "wordcount": 703
     },
     {
-      "title": "The Power of Abstraction",
-      "subtitle": "Or how to think like a Computer Scientist.",
-      "url": "https://blog.apiad.net/p/the-power-of-abstraction",
-      "date": "2024-11-18T12:02:17.264Z",
-      "reactions": 48,
-      "wordcount": 2065
-    },
-    {
       "title": "AI is doing something weird to Science",
       "subtitle": "In both good and bad ways, and it won't go away.",
       "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
       "date": "2026-05-25T12:40:28.856Z",
       "reactions": 32,
       "wordcount": 4881
+    },
+    {
+      "title": "The Power of Abstraction",
+      "subtitle": "Or how to think like a Computer Scientist.",
+      "url": "https://blog.apiad.net/p/the-power-of-abstraction",
+      "date": "2024-11-18T12:02:17.264Z",
+      "reactions": 48,
+      "wordcount": 2065
     }
   ]
 }
