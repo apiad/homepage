@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-01T10:23:00.361Z",
+  "generated_at": "2026-06-02T09:10:22.641Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -475,20 +475,20 @@
       "wordcount": 5580
     },
     {
-      "title": "Building an AI Agent from Scratch ",
-      "subtitle": "An upcoming series in The Computist Journal.",
-      "url": "https://blog.apiad.net/p/building-an-ai-agent-from-scratch",
-      "date": "2025-05-21T10:17:29.994Z",
-      "reactions": 45,
-      "wordcount": 703
-    },
-    {
       "title": "AI is doing something weird to Science",
       "subtitle": "In both good and bad ways, and it won't go away.",
       "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
       "date": "2026-05-25T12:40:28.856Z",
       "reactions": 32,
       "wordcount": 4881
+    },
+    {
+      "title": "Building an AI Agent from Scratch ",
+      "subtitle": "An upcoming series in The Computist Journal.",
+      "url": "https://blog.apiad.net/p/building-an-ai-agent-from-scratch",
+      "date": "2025-05-21T10:17:29.994Z",
+      "reactions": 45,
+      "wordcount": 703
     },
     {
       "title": "The Power of Abstraction",
