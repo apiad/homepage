@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-03T09:54:13.769Z",
+  "generated_at": "2026-06-04T08:52:07.014Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -463,7 +463,7 @@
       "subtitle": "Implementing the CODER Framework with AI",
       "url": "https://blog.apiad.net/p/using-ai-to-augment-not-automate",
       "date": "2025-08-05T10:31:22.907Z",
-      "reactions": 59,
+      "reactions": 58,
       "wordcount": 3610
     },
     {
