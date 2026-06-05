@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-04T08:52:07.014Z",
+  "generated_at": "2026-06-05T08:44:25.469Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -58,7 +58,7 @@
     "apiad/illiterate": {
       "desc": "Unobtrusive literate programming experience for pragmatists",
       "lang": "Rust",
-      "stars": 17,
+      "stars": 18,
       "forks": 3
     },
     "apiad/lovelaice": {
@@ -431,7 +431,7 @@
       "subtitle": "A very opinionated short list.",
       "url": "https://blog.apiad.net/p/the-most-beautiful-algorithms-ever",
       "date": "2025-02-10T12:03:23.140Z",
-      "reactions": 92,
+      "reactions": 93,
       "wordcount": 2745
     },
     {
