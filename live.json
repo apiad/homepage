@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T09:25:39.286Z",
+  "generated_at": "2026-06-09T08:32:13.908Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -479,7 +479,7 @@
       "subtitle": "In both good and bad ways, and it won't go away.",
       "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
       "date": "2026-05-25T12:40:28.856Z",
-      "reactions": 32,
+      "reactions": 35,
       "wordcount": 4881
     },
     {
