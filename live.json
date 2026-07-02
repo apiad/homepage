@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T08:50:32.555Z",
+  "generated_at": "2026-07-02T08:12:50.319Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -169,9 +169,9 @@
         "Yoan Gutiérrez",
         "Juan Pablo Consuegra‐Ayala",
         "Suilán Estévez-Velarde",
+        "Yudivián Almeida-Cruz",
         "Rafael Muñoz",
-        "Andrés Montoyo",
-        "Yudivián Almeida-Cruz"
+        "Andrés Montoyo"
       ],
       "venue": "Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
       "type": "article",
