@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T08:25:15.316Z",
+  "generated_at": "2026-07-11T07:12:21.427Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -169,9 +169,9 @@
         "Yoan Gutiérrez",
         "Juan Pablo Consuegra‐Ayala",
         "Suilán Estévez-Velarde",
-        "Yudivián Almeida-Cruz",
         "Rafael Muñoz",
-        "Andrés Montoyo"
+        "Andrés Montoyo",
+        "Yudivián Almeida-Cruz"
       ],
       "venue": "RUA, Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
       "type": "article",
@@ -433,7 +433,7 @@
       "subtitle": "Or why LLMs still can't, and probably never will be able to fully reason.",
       "url": "https://blog.apiad.net/p/reasoning-llms",
       "date": "2025-03-03T12:03:44.446Z",
-      "reactions": 72,
+      "reactions": 73,
       "wordcount": 5388
     },
     {
@@ -465,7 +465,7 @@
       "subtitle": "In both good and bad ways, and it won't go away.",
       "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
       "date": "2026-05-25T12:40:28.856Z",
-      "reactions": 36,
+      "reactions": 37,
       "wordcount": 4881
     },
     {
