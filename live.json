@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T07:15:57.058Z",
+  "generated_at": "2026-07-16T07:23:39.053Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -112,7 +112,7 @@
         "Julio Villena Román"
       ],
       "venue": "RUA, Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://openalex.org/W2894315785"
     },
     {
@@ -142,7 +142,7 @@
         "James Montgomery"
       ],
       "venue": "",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.1109/cec.2013.6557551"
     },
     {
@@ -157,7 +157,7 @@
         "Stephen Chen"
       ],
       "venue": "",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.1109/cec.2015.7257143"
     },
     {
@@ -169,12 +169,12 @@
         "Yoan Gutiérrez",
         "Juan Pablo Consuegra‐Ayala",
         "Suilán Estévez-Velarde",
-        "Yudivián Almeida-Cruz",
         "Rafael Muñoz",
-        "Andrés Montoyo"
+        "Andrés Montoyo",
+        "Yudivián Almeida-Cruz"
       ],
       "venue": "RUA, Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.26342/2021-67-20"
     },
     {
@@ -221,7 +221,7 @@
         "Rafael Muñoz-Guillena"
       ],
       "venue": "",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.26615/978-954-452-072-4_026"
     },
     {
@@ -252,7 +252,7 @@
         "Rafael Muñoz"
       ],
       "venue": "",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.18653/v1/w19-1910"
     },
     {
@@ -313,7 +313,7 @@
         "Rafael Muñoz"
       ],
       "venue": "",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.26615/978-954-452-056-4_032"
     },
     {
@@ -344,7 +344,7 @@
         "Yudivián Almeida-Cruz"
       ],
       "venue": "",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.18653/v1/2020.nlpcovid19-2.22"
     },
     {
@@ -376,7 +376,7 @@
         "Yudivián Almeida-Cruz"
       ],
       "venue": "",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.26615/978-954-452-072-4_046"
     },
     {
@@ -391,7 +391,7 @@
         "René Fabrice Bile"
       ],
       "venue": "Companion Proceedings of the Web Conference 2022",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.1145/3487553.3524675"
     },
     {
@@ -407,7 +407,7 @@
         "Andrés Montoyo"
       ],
       "venue": "",
-      "type": "article",
+      "type": "conference paper",
       "url": "https://doi.org/10.26615/978-954-452-056-4_105"
     }
   ],
