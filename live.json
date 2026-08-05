@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T07:41:23.334Z",
+  "generated_at": "2026-08-05T07:41:39.674Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -237,7 +237,7 @@
         "Alejandro Piad-Morffis",
         "Julio Villena-Román"
       ],
-      "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Científicas)",
+      "venue": "RUA, Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
       "type": "article",
       "url": "https://doi.org/10.26342/2019-62-9"
     },
@@ -282,7 +282,7 @@
         "Andrés Montoyo",
         "Rafael Muñoz"
       ],
-      "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Científicas)",
+      "venue": "RUA, Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
       "type": "article",
       "url": "https://doi.org/10.26342/2019-62-1"
     },
@@ -418,7 +418,7 @@
       "url": "https://blog.apiad.net/p/the-four-fallacies-of-modern-ai",
       "date": "2025-09-10T11:30:43.826Z",
       "reactions": 69,
-      "wordcount": 2339
+      "wordcount": 2386
     },
     {
       "title": "The Most Beautiful Algorithms Ever Designed",
@@ -426,7 +426,7 @@
       "url": "https://blog.apiad.net/p/the-most-beautiful-algorithms-ever",
       "date": "2025-02-10T12:03:23.140Z",
       "reactions": 93,
-      "wordcount": 2745
+      "wordcount": 2778
     },
     {
       "title": "The Insurmountable Problem of Formal Reasoning in LLMs",
@@ -434,7 +434,7 @@
       "url": "https://blog.apiad.net/p/reasoning-llms",
       "date": "2025-03-03T12:03:44.446Z",
       "reactions": 73,
-      "wordcount": 5388
+      "wordcount": 5522
     },
     {
       "title": "Why reliable AI requires a paradigm shift",
@@ -458,7 +458,7 @@
       "url": "https://blog.apiad.net/p/using-ai-to-augment-not-automate",
       "date": "2025-08-05T10:31:22.906Z",
       "reactions": 58,
-      "wordcount": 3610
+      "wordcount": 3593
     },
     {
       "title": "AI is doing something weird to Science",
@@ -466,7 +466,7 @@
       "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
       "date": "2026-05-25T12:40:28.856Z",
       "reactions": 37,
-      "wordcount": 4881
+      "wordcount": 4966
     },
     {
       "title": "AI Coding Agents, Deconstructed",
@@ -482,7 +482,7 @@
       "url": "https://blog.apiad.net/p/building-an-ai-agent-from-scratch",
       "date": "2025-05-21T10:17:29.993Z",
       "reactions": 45,
-      "wordcount": 703
+      "wordcount": 718
     },
     {
       "title": "The Power of Abstraction",
@@ -490,7 +490,7 @@
       "url": "https://blog.apiad.net/p/the-power-of-abstraction",
       "date": "2024-11-18T12:02:17.264Z",
       "reactions": 48,
-      "wordcount": 2065
+      "wordcount": 2097
     }
   ]
 }
