@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05T07:41:39.674Z",
+  "generated_at": "2026-08-06T07:41:46.798Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -34,7 +34,7 @@
     "apiad/auditorium": {
       "desc": "An HTML+CSS+JS generator from pure Python code",
       "lang": "Python",
-      "stars": 86,
+      "stars": 87,
       "forks": 15
     },
     "apiad/castor": {
@@ -450,7 +450,7 @@
       "url": "https://blog.apiad.net/p/artificial-neural-networks-are-nothing",
       "date": "2025-01-31T16:48:32.490Z",
       "reactions": 65,
-      "wordcount": 1510
+      "wordcount": 1521
     },
     {
       "title": "Using AI to Augment, Not Automate Your Writing",
@@ -474,7 +474,7 @@
       "url": "https://blog.apiad.net/p/the-anatomy-of-ai-coding-agents",
       "date": "2026-04-02T13:40:59.447Z",
       "reactions": 30,
-      "wordcount": 5580
+      "wordcount": 5644
     },
     {
       "title": "Building an AI Agent from Scratch ",
