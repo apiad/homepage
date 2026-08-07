@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06T07:41:46.798Z",
+  "generated_at": "2026-08-07T06:10:03.927Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -442,7 +442,7 @@
       "url": "https://blog.apiad.net/p/reliable-ai-is-harder-than-you-think",
       "date": "2024-04-11T15:14:10.746Z",
       "reactions": 65,
-      "wordcount": 2775
+      "wordcount": 2815
     },
     {
       "title": "Artificial Neural Networks Are Nothing Like Brains",
