@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T06:16:19.577Z",
+  "generated_at": "2026-08-13T06:18:08.722Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -58,7 +58,7 @@
     "apiad/illiterate": {
       "desc": "Unobtrusive literate programming experience for pragmatists",
       "lang": "Rust",
-      "stars": 18,
+      "stars": 19,
       "forks": 3
     },
     "apiad/manifoldx": {
@@ -82,7 +82,7 @@
     "apiad/tesserax": {
       "desc": "A Pythonic library for scientific visualization in SVG",
       "lang": "Python",
-      "stars": 21,
+      "stars": 22,
       "forks": 2
     },
     "apiad/violetear": {
