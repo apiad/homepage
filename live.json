@@ -1,36 +1,6 @@
 {
-  "generated_at": "2026-08-17T05:36:47.257Z",
+  "generated_at": "2026-08-18T05:32:22.012Z",
   "repos": {
-    "syalia-srl/beaver": {
-      "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
-      "lang": "Python",
-      "stars": 36,
-      "forks": 10
-    },
-    "gia-uh/argo": {
-      "desc": "Agent-based Reasoning, Governance, and Orchestration",
-      "lang": "Python",
-      "stars": 24,
-      "forks": 3
-    },
-    "gia-uh/autogoal": {
-      "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
-      "lang": "Python",
-      "stars": 215,
-      "forks": 66
-    },
-    "gia-uh/cecilia": {
-      "desc": "The Cuban Language Model",
-      "lang": "TeX",
-      "stars": 30,
-      "forks": 0
-    },
-    "gia-uh/lingo": {
-      "desc": "A Python library for context engineering.",
-      "lang": "Python",
-      "stars": 5,
-      "forks": 3
-    },
     "apiad/auditorium": {
       "desc": "An HTML+CSS+JS generator from pure Python code",
       "lang": "Python",
@@ -89,6 +59,36 @@
       "desc": "The Full-Stack Web Framework for Pythonistas",
       "lang": "Python",
       "stars": 13,
+      "forks": 3
+    },
+    "syalia-srl/beaver": {
+      "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
+      "lang": "Python",
+      "stars": 36,
+      "forks": 10
+    },
+    "gia-uh/argo": {
+      "desc": "Agent-based Reasoning, Governance, and Orchestration",
+      "lang": "Python",
+      "stars": 24,
+      "forks": 3
+    },
+    "gia-uh/autogoal": {
+      "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
+      "lang": "Python",
+      "stars": 215,
+      "forks": 66
+    },
+    "gia-uh/cecilia": {
+      "desc": "The Cuban Language Model",
+      "lang": "TeX",
+      "stars": 30,
+      "forks": 0
+    },
+    "gia-uh/lingo": {
+      "desc": "A Python library for context engineering.",
+      "lang": "Python",
+      "stars": 5,
       "forks": 3
     }
   },
