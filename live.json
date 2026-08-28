@@ -1,11 +1,35 @@
 {
-  "generated_at": "2026-08-27T16:13:47.891Z",
+  "generated_at": "2026-08-28T17:12:11.262Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
       "lang": "Python",
       "stars": 36,
       "forks": 10
+    },
+    "gia-uh/argo": {
+      "desc": "Agent-based Reasoning, Governance, and Orchestration",
+      "lang": "Python",
+      "stars": 24,
+      "forks": 3
+    },
+    "gia-uh/autogoal": {
+      "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
+      "lang": "Python",
+      "stars": 215,
+      "forks": 66
+    },
+    "gia-uh/cecilia": {
+      "desc": "The Cuban Language Model",
+      "lang": "TeX",
+      "stars": 30,
+      "forks": 0
+    },
+    "gia-uh/lingo": {
+      "desc": "A Python library for context engineering.",
+      "lang": "Python",
+      "stars": 5,
+      "forks": 3
     },
     "apiad/auditorium": {
       "desc": "An HTML+CSS+JS generator from pure Python code",
@@ -65,30 +89,6 @@
       "desc": "The Full-Stack Web Framework for Pythonistas",
       "lang": "Python",
       "stars": 13,
-      "forks": 3
-    },
-    "gia-uh/argo": {
-      "desc": "Agent-based Reasoning, Governance, and Orchestration",
-      "lang": "Python",
-      "stars": 24,
-      "forks": 3
-    },
-    "gia-uh/autogoal": {
-      "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
-      "lang": "Python",
-      "stars": 215,
-      "forks": 66
-    },
-    "gia-uh/cecilia": {
-      "desc": "The Cuban Language Model",
-      "lang": "TeX",
-      "stars": 30,
-      "forks": 0
-    },
-    "gia-uh/lingo": {
-      "desc": "A Python library for context engineering.",
-      "lang": "Python",
-      "stars": 5,
       "forks": 3
     }
   },
@@ -180,7 +180,7 @@
     {
       "title": "Applying Human-in-the-Loop to construct a dataset for determining content reliability to combat fake news",
       "year": 2023,
-      "citations": 9,
+      "citations": 10,
       "authors": [
         "Alba Bonet-Jover",
         "Robiert Sepúlveda-Torres",
