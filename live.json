@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T10:21:08.560Z",
+  "generated_at": "2026-08-31T11:26:37.950Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -343,7 +343,7 @@
         "Andrés Montoyo",
         "Rafael Muñoz"
       ],
-      "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Científicas)",
+      "venue": "Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
       "type": "article",
       "url": "https://doi.org/10.26342/2019-62-1"
     },
