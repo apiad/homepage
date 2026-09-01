@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T11:26:37.950Z",
+  "generated_at": "2026-09-01T09:49:01.403Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -343,7 +343,7 @@
         "Andrés Montoyo",
         "Rafael Muñoz"
       ],
-      "venue": "Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
+      "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Científicas)",
       "type": "article",
       "url": "https://doi.org/10.26342/2019-62-1"
     },
@@ -437,20 +437,20 @@
       "wordcount": 5522
     },
     {
-      "title": "Why reliable AI requires a paradigm shift",
-      "subtitle": "Hallucinations are the fundamental barrier for the widespread use of AI, and they won't be solved anytime soon.",
-      "url": "https://blog.apiad.net/p/reliable-ai-is-harder-than-you-think",
-      "date": "2024-04-11T15:14:10.746Z",
-      "reactions": 65,
-      "wordcount": 2815
-    },
-    {
       "title": "Artificial Neural Networks Are Nothing Like Brains",
       "subtitle": "Busting the biggest public misconception in AI",
       "url": "https://blog.apiad.net/p/artificial-neural-networks-are-nothing",
       "date": "2025-01-31T16:48:32.490Z",
       "reactions": 65,
       "wordcount": 1521
+    },
+    {
+      "title": "Why reliable AI requires a paradigm shift",
+      "subtitle": "Hallucinations are the fundamental barrier for the widespread use of AI, and they won't be solved anytime soon.",
+      "url": "https://blog.apiad.net/p/reliable-ai-is-harder-than-you-think",
+      "date": "2024-04-11T15:14:10.746Z",
+      "reactions": 65,
+      "wordcount": 2815
     },
     {
       "title": "Using AI to Augment, Not Automate Your Writing",
