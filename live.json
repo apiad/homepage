@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T09:30:56.561Z",
+  "generated_at": "2026-09-04T09:23:09.635Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -40,7 +40,7 @@
     "apiad/castor": {
       "desc": "Minimalistic, embedded background tasks manager based on SQLite3.",
       "lang": "Python",
-      "stars": 3,
+      "stars": 2,
       "forks": 1
     },
     "apiad/codesmells": {
