@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T09:23:09.635Z",
+  "generated_at": "2026-09-05T08:52:06.424Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -111,7 +111,7 @@
         "Alejandro Piad-Morffis",
         "Julio Villena Román"
       ],
-      "venue": "RUA, Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
+      "venue": "Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
       "type": "conference paper",
       "url": "https://openalex.org/W2894315785"
     },
