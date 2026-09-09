@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T09:26:12.713Z",
+  "generated_at": "2026-09-09T09:27:03.189Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -417,7 +417,7 @@
       "subtitle": "And Why Believing in Them Hinders Progress ",
       "url": "https://blog.apiad.net/p/the-four-fallacies-of-modern-ai",
       "date": "2025-09-10T11:30:43.826Z",
-      "reactions": 69,
+      "reactions": 70,
       "wordcount": 2386
     },
     {
