@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T09:45:36.758Z",
+  "generated_at": "2026-09-17T09:52:48.968Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -425,7 +425,7 @@
       "subtitle": "A very opinionated short list.",
       "url": "https://blog.apiad.net/p/the-most-beautiful-algorithms-ever",
       "date": "2025-02-10T12:03:23.140Z",
-      "reactions": 94,
+      "reactions": 95,
       "wordcount": 2778
     },
     {
@@ -465,7 +465,7 @@
       "subtitle": "In both good and bad ways, and it won't go away.",
       "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
       "date": "2026-05-25T12:40:28.856Z",
-      "reactions": 37,
+      "reactions": 38,
       "wordcount": 4966
     },
     {
@@ -473,7 +473,7 @@
       "subtitle": "The four hidden layers that separate tools that help form tools that hinder",
       "url": "https://blog.apiad.net/p/the-anatomy-of-ai-coding-agents",
       "date": "2026-04-02T13:40:59.447Z",
-      "reactions": 30,
+      "reactions": 31,
       "wordcount": 5644
     },
     {
