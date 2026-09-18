@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T09:52:48.968Z",
+  "generated_at": "2026-09-18T09:28:14.997Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -441,7 +441,7 @@
       "subtitle": "Busting the biggest public misconception in AI",
       "url": "https://blog.apiad.net/p/artificial-neural-networks-are-nothing",
       "date": "2025-01-31T16:48:32.490Z",
-      "reactions": 65,
+      "reactions": 67,
       "wordcount": 1521
     },
     {
