@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T10:29:04.470Z",
+  "generated_at": "2026-09-22T09:40:57.829Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -154,7 +154,7 @@
         "Suilán Estévez-Velarde",
         "Antonio Bolufé-Röhler",
         "James Montgomery",
-        "Stephen Chen"
+        "Stephen Y. Chen"
       ],
       "venue": "",
       "type": "conference paper",
@@ -305,7 +305,7 @@
       "authors": [
         "Alejandro Piad-Morffis",
         "Suilán Estévez-Velarde",
-        "Ernesto L. Estevanell-Valladares",
+        "Ernesto Luis Estevanell-Valladares",
         "Yoan Gutiérrez",
         "Andrés Montoyo",
         "Rafael Muñoz",
@@ -382,7 +382,7 @@
       "year": 2021,
       "citations": 1,
       "authors": [
-        "Ernesto L. Estevanell-Valladares",
+        "Ernesto Luis Estevanell-Valladares",
         "Alejandro Piad-Morffis",
         "Suilán Estévez-Velarde",
         "Yoan Gutiérrez",
