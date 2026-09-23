@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T09:40:57.829Z",
+  "generated_at": "2026-09-23T09:48:56.503Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -138,7 +138,7 @@
         "Antonio Bolufé-Röhler",
         "Suilán Estévez-Velarde",
         "Alejandro Piad-Morffis",
-        "Stephen Chen",
+        "Stephen Y. Chen",
         "James Montgomery"
       ],
       "venue": "",
@@ -473,7 +473,7 @@
       "subtitle": "The four hidden layers that separate tools that help form tools that hinder",
       "url": "https://blog.apiad.net/p/the-anatomy-of-ai-coding-agents",
       "date": "2026-04-02T13:40:59.447Z",
-      "reactions": 31,
+      "reactions": 32,
       "wordcount": 5644
     },
     {
