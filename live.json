@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T10:03:19.264Z",
+  "generated_at": "2026-09-26T09:44:41.154Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -84,12 +84,6 @@
       "lang": "Python",
       "stars": 23,
       "forks": 2
-    },
-    "apiad/violetear": {
-      "desc": "The Full-Stack Web Framework for Pythonistas",
-      "lang": "Python",
-      "stars": 13,
-      "forks": 3
     }
   },
   "publications": [
