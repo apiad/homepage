@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T09:44:41.154Z",
+  "generated_at": "2026-09-27T10:24:26.736Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -142,7 +142,7 @@
     {
       "title": "Evolution strategies with thresheld convergence",
       "year": 2015,
-      "citations": 17,
+      "citations": 19,
       "authors": [
         "Alejandro Piad-Morffis",
         "Suilán Estévez-Velarde",
@@ -447,20 +447,20 @@
       "wordcount": 2815
     },
     {
-      "title": "Using AI to Augment, Not Automate Your Writing",
-      "subtitle": "Implementing the CODER Framework with AI",
-      "url": "https://blog.apiad.net/p/using-ai-to-augment-not-automate",
-      "date": "2025-08-05T10:31:22.906Z",
-      "reactions": 58,
-      "wordcount": 3593
-    },
-    {
       "title": "AI is doing something weird to Science",
       "subtitle": "In both good and bad ways, and it won't go away.",
       "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
       "date": "2026-05-25T12:40:28.856Z",
       "reactions": 38,
       "wordcount": 4966
+    },
+    {
+      "title": "Using AI to Augment, Not Automate Your Writing",
+      "subtitle": "Implementing the CODER Framework with AI",
+      "url": "https://blog.apiad.net/p/using-ai-to-augment-not-automate",
+      "date": "2025-08-05T10:31:22.906Z",
+      "reactions": 58,
+      "wordcount": 3593
     },
     {
       "title": "AI Coding Agents, Deconstructed",
