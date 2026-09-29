@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T11:31:43.825Z",
+  "generated_at": "2026-09-29T11:11:33.456Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -469,7 +469,7 @@
       "subtitle": "Or how to think like a Computer Scientist.",
       "url": "https://blog.apiad.net/p/the-power-of-abstraction",
       "date": "2024-11-18T12:02:17.264Z",
-      "reactions": 49,
+      "reactions": 52,
       "wordcount": 2097
     },
     {
