@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T11:00:05.265Z",
+  "generated_at": "2026-10-05T12:07:02.466Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -148,7 +148,7 @@
         "Stephen Y. Chen",
         "James Montgomery"
       ],
-      "venue": "",
+      "venue": "IEEE Congress on Evolutionary Computation (CEC)",
       "type": "conference paper",
       "url": "https://doi.org/10.1109/cec.2013.6557551"
     },
@@ -163,7 +163,7 @@
         "James Montgomery",
         "Stephen Y. Chen"
       ],
-      "venue": "",
+      "venue": "IEEE Congress on Evolutionary Computation (CEC)",
       "type": "conference paper",
       "url": "https://doi.org/10.1109/cec.2015.7257143"
     },
@@ -258,7 +258,7 @@
         "Suilán Estévez-Velarde",
         "Rafael Muñoz"
       ],
-      "venue": "",
+      "venue": "Clinical Natural Language Processing Workshop (ClinicalNLP)",
       "type": "conference paper",
       "url": "https://doi.org/10.18653/v1/w19-1910"
     },
@@ -379,7 +379,7 @@
         "Mohamed Ben Aouicha",
         "René Fabrice Bile"
       ],
-      "venue": "Companion Proceedings of the Web Conference 2022",
+      "venue": "The Web Conference (WWW)",
       "type": "conference paper",
       "url": "https://doi.org/10.1145/3487553.3524675"
     },
