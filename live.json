@@ -1,6 +1,91 @@
 {
-  "generated_at": "2026-10-07T11:36:19.114Z",
-  "repos": {},
+  "generated_at": "2026-10-08T11:50:46.006Z",
+  "repos": {
+    "syalia-srl/beaver": {
+      "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
+      "lang": "Python",
+      "stars": 36,
+      "forks": 11
+    },
+    "gia-uh/argo": {
+      "desc": "Agent-based Reasoning, Governance, and Orchestration",
+      "lang": "Python",
+      "stars": 24,
+      "forks": 3
+    },
+    "gia-uh/autogoal": {
+      "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
+      "lang": "Python",
+      "stars": 215,
+      "forks": 66
+    },
+    "gia-uh/cecilia": {
+      "desc": "The Cuban Language Model",
+      "lang": "TeX",
+      "stars": 30,
+      "forks": 0
+    },
+    "gia-uh/lingo": {
+      "desc": "A Python library for context engineering.",
+      "lang": "Python",
+      "stars": 5,
+      "forks": 3
+    },
+    "apiad/auditorium": {
+      "desc": "An HTML+CSS+JS generator from pure Python code",
+      "lang": "Python",
+      "stars": 88,
+      "forks": 15
+    },
+    "apiad/castor": {
+      "desc": "Minimalistic, embedded background tasks manager based on SQLite3.",
+      "lang": "Python",
+      "stars": 2,
+      "forks": 1
+    },
+    "apiad/codesmells": {
+      "desc": "",
+      "lang": "Python",
+      "stars": 0,
+      "forks": 0
+    },
+    "apiad/ferret": {
+      "desc": "A minimalistic, thread and process-safe performance logger for Python",
+      "lang": "Python",
+      "stars": 1,
+      "forks": 0
+    },
+    "apiad/illiterate": {
+      "desc": "Unobtrusive literate programming experience for pragmatists",
+      "lang": "Rust",
+      "stars": 19,
+      "forks": 3
+    },
+    "apiad/manifoldx": {
+      "desc": "",
+      "lang": "Python",
+      "stars": 6,
+      "forks": 1
+    },
+    "apiad/purely": {
+      "desc": "Lightweight functional primitives for cleaner Python",
+      "lang": "Python",
+      "stars": 1,
+      "forks": 0
+    },
+    "apiad/sixma": {
+      "desc": "",
+      "lang": "Python",
+      "stars": 2,
+      "forks": 0
+    },
+    "apiad/tesserax": {
+      "desc": "A Pythonic library for scientific visualization in SVG",
+      "lang": "Python",
+      "stars": 23,
+      "forks": 2
+    }
+  },
   "publications": [
     {
       "title": "Overview of TASS 2018: Opinions, Health and Emotions",
@@ -311,7 +396,7 @@
       ],
       "venue": "Zenodo (CERN European Organization for Nuclear Research)",
       "type": "article",
-      "url": "https://doi.org/10.5281/zenodo.6923550"
+      "url": "https://doi.org/10.5281/zenodo.6923549"
     }
   ],
   "writing": [
