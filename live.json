@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T11:50:46.006Z",
+  "generated_at": "2026-10-09T11:42:51.236Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -278,20 +278,6 @@
       "url": "https://doi.org/10.1016/j.jbi.2021.103716"
     },
     {
-      "title": "eHealth-KD 2020",
-      "year": 2020,
-      "citations": 2,
-      "authors": [
-        "Alejandro Piad-Morffis",
-        "Juan Pablo Consuegra‐Ayala",
-        "Yoan Gutiérrez",
-        "Suilán Estévez-Velarde"
-      ],
-      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
-      "type": "dataset",
-      "url": "https://doi.org/10.5281/zenodo.3870509"
-    },
-    {
       "title": "eHealth-KD v2",
       "year": 2020,
       "citations": 2,
@@ -303,7 +289,21 @@
       ],
       "venue": "Zenodo (CERN European Organization for Nuclear Research)",
       "type": "dataset",
-      "url": "https://doi.org/10.5281/zenodo.3696792"
+      "url": "https://doi.org/10.5281/zenodo.3696791"
+    },
+    {
+      "title": "eHealth-KD 2020",
+      "year": 2020,
+      "citations": 2,
+      "authors": [
+        "Alejandro Piad-Morffis",
+        "Juan Pablo Consuegra‐Ayala",
+        "Yoan Gutiérrez",
+        "Suilán Estévez-Velarde"
+      ],
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "type": "software",
+      "url": "https://doi.org/10.5281/zenodo.3632228"
     },
     {
       "title": "Analyzing the Interaction of Users with News Articles to Create Personalization Services",
