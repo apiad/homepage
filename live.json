@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T12:52:30.733Z",
+  "generated_at": "2026-10-13T12:30:48.300Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -34,7 +34,7 @@
     "apiad/auditorium": {
       "desc": "An HTML+CSS+JS generator from pure Python code",
       "lang": "Python",
-      "stars": 88,
+      "stars": 89,
       "forks": 15
     },
     "apiad/castor": {
@@ -140,7 +140,7 @@
     {
       "title": "Differential evolution with thresheld convergence",
       "year": 2013,
-      "citations": 20,
+      "citations": 19,
       "authors": [
         "Antonio Bolufé-Röhler",
         "Suilán Estévez-Velarde",
