@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T11:06:24.697Z",
+  "generated_at": "2026-10-29T11:21:12.588Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -348,7 +348,7 @@
         "Rafael Muñoz",
         "Yudivián Almeida-Cruz"
       ],
-      "venue": "",
+      "venue": "Workshop on NLP for COVID-19 (NLP-COVID19)",
       "type": "conference paper",
       "url": "https://doi.org/10.18653/v1/2020.nlpcovid19-2.22"
     },
@@ -445,7 +445,7 @@
       "subtitle": "In both good and bad ways, and it won't go away.",
       "url": "https://blog.apiad.net/p/ai-is-doing-something-weird-to-science",
       "date": "2026-05-25T12:40:28.856Z",
-      "reactions": 39,
+      "reactions": 40,
       "wordcount": 4966
     },
     {
