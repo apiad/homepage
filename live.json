@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T11:21:12.588Z",
+  "generated_at": "2026-10-30T11:13:34.621Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -31,28 +31,10 @@
       "stars": 5,
       "forks": 3
     },
-    "apiad/auditorium": {
-      "desc": "An HTML+CSS+JS generator from pure Python code",
-      "lang": "Python",
-      "stars": 89,
-      "forks": 15
-    },
-    "apiad/castor": {
-      "desc": "Minimalistic, embedded background tasks manager based on SQLite3.",
-      "lang": "Python",
-      "stars": 2,
-      "forks": 1
-    },
     "apiad/codesmells": {
       "desc": "",
       "lang": "Python",
       "stars": 0,
-      "forks": 0
-    },
-    "apiad/ferret": {
-      "desc": "A minimalistic, thread and process-safe performance logger for Python",
-      "lang": "Python",
-      "stars": 1,
       "forks": 0
     },
     "apiad/illiterate": {
@@ -60,30 +42,6 @@
       "lang": "Rust",
       "stars": 19,
       "forks": 3
-    },
-    "apiad/manifoldx": {
-      "desc": "",
-      "lang": "Python",
-      "stars": 6,
-      "forks": 1
-    },
-    "apiad/purely": {
-      "desc": "Lightweight functional primitives for cleaner Python",
-      "lang": "Python",
-      "stars": 1,
-      "forks": 0
-    },
-    "apiad/sixma": {
-      "desc": "",
-      "lang": "Python",
-      "stars": 2,
-      "forks": 0
-    },
-    "apiad/tesserax": {
-      "desc": "A Pythonic library for scientific visualization in SVG",
-      "lang": "Python",
-      "stars": 23,
-      "forks": 2
     }
   },
   "publications": [
