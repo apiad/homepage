@@ -1,11 +1,23 @@
 {
-  "generated_at": "2026-11-04T12:49:41.916Z",
+  "generated_at": "2026-11-05T12:58:10.479Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
       "lang": "Python",
-      "stars": 37,
+      "stars": 38,
       "forks": 11
+    },
+    "apiad/codesmells": {
+      "desc": "",
+      "lang": "Python",
+      "stars": 0,
+      "forks": 0
+    },
+    "apiad/illiterate": {
+      "desc": "Unobtrusive literate programming experience for pragmatists",
+      "lang": "Rust",
+      "stars": 19,
+      "forks": 3
     },
     "gia-uh/argo": {
       "desc": "Agent-based Reasoning, Governance, and Orchestration",
@@ -29,18 +41,6 @@
       "desc": "A Python library for context engineering.",
       "lang": "Python",
       "stars": 5,
-      "forks": 3
-    },
-    "apiad/codesmells": {
-      "desc": "",
-      "lang": "Python",
-      "stars": 0,
-      "forks": 0
-    },
-    "apiad/illiterate": {
-      "desc": "Unobtrusive literate programming experience for pragmatists",
-      "lang": "Rust",
-      "stars": 19,
       "forks": 3
     }
   },
@@ -70,7 +70,7 @@
     {
       "title": "Exploiting discourse structure of traditional digital media to enhance automatic fake news detection",
       "year": 2020,
-      "citations": 29,
+      "citations": 31,
       "authors": [
         "Alba Bonet-Jover",
         "Alejandro Piad-Morffis",
@@ -161,7 +161,7 @@
     {
       "title": "A computational ecosystem to support eHealth Knowledge Discovery technologies in Spanish",
       "year": 2020,
-      "citations": 8,
+      "citations": 9,
       "authors": [
         "Alejandro Piad-Morffis",
         "Yoan Gutiérrez",
