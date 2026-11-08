@@ -1,49 +1,6 @@
 {
-  "generated_at": "2026-11-07T11:34:17.574Z",
-  "repos": {
-    "syalia-srl/beaver": {
-      "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
-      "lang": "Python",
-      "stars": 38,
-      "forks": 11
-    },
-    "gia-uh/argo": {
-      "desc": "Agent-based Reasoning, Governance, and Orchestration",
-      "lang": "Python",
-      "stars": 24,
-      "forks": 3
-    },
-    "gia-uh/autogoal": {
-      "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
-      "lang": "Python",
-      "stars": 215,
-      "forks": 66
-    },
-    "gia-uh/cecilia": {
-      "desc": "The Cuban Language Model",
-      "lang": "HTML",
-      "stars": 30,
-      "forks": 0
-    },
-    "gia-uh/lingo": {
-      "desc": "A Python library for context engineering.",
-      "lang": "Python",
-      "stars": 5,
-      "forks": 3
-    },
-    "apiad/codesmells": {
-      "desc": "",
-      "lang": "Python",
-      "stars": 0,
-      "forks": 0
-    },
-    "apiad/illiterate": {
-      "desc": "Unobtrusive literate programming experience for pragmatists",
-      "lang": "Rust",
-      "stars": 19,
-      "forks": 3
-    }
-  },
+  "generated_at": "2026-11-08T11:46:34.399Z",
+  "repos": {},
   "publications": [
     {
       "title": "Overview of TASS 2018: Opinions, Health and Emotions",
@@ -70,7 +27,7 @@
     {
       "title": "Exploiting discourse structure of traditional digital media to enhance automatic fake news detection",
       "year": 2020,
-      "citations": 31,
+      "citations": 32,
       "authors": [
         "Alba Bonet-Jover",
         "Alejandro Piad-Morffis",
@@ -113,7 +70,7 @@
     {
       "title": "Evolution strategies with thresheld convergence",
       "year": 2015,
-      "citations": 17,
+      "citations": 18,
       "authors": [
         "Alejandro Piad-Morffis",
         "Suilán Estévez-Velarde",
@@ -124,6 +81,22 @@
       "venue": "IEEE Congress on Evolutionary Computation (CEC)",
       "type": "conference paper",
       "url": "https://doi.org/10.1109/cec.2015.7257143"
+    },
+    {
+      "title": "Applying Human-in-the-Loop to construct a dataset for determining content reliability to combat fake news",
+      "year": 2023,
+      "citations": 12,
+      "authors": [
+        "Alba Bonet-Jover",
+        "Robiert Sepúlveda-Torres",
+        "Estela Saquete",
+        "Patricio Martínez-Barco",
+        "Alejandro Piad-Morffis",
+        "Suilán Estévez-Velarde"
+      ],
+      "venue": "Engineering Applications of Artificial Intelligence",
+      "type": "article",
+      "url": "https://doi.org/10.1016/j.engappai.2023.107152"
     },
     {
       "title": "Overview of the eHealth Knowledge Discovery Challenge at IberLEF 2019.",
@@ -141,22 +114,6 @@
       "venue": "RUA, Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
       "type": "conference paper",
       "url": "https://doi.org/10.26342/2021-67-20"
-    },
-    {
-      "title": "Applying Human-in-the-Loop to construct a dataset for determining content reliability to combat fake news",
-      "year": 2023,
-      "citations": 10,
-      "authors": [
-        "Alba Bonet-Jover",
-        "Robiert Sepúlveda-Torres",
-        "Estela Saquete",
-        "Patricio Martínez-Barco",
-        "Alejandro Piad-Morffis",
-        "Suilán Estévez-Velarde"
-      ],
-      "venue": "Engineering Applications of Artificial Intelligence",
-      "type": "article",
-      "url": "https://doi.org/10.1016/j.engappai.2023.107152"
     },
     {
       "title": "A computational ecosystem to support eHealth Knowledge Discovery technologies in Spanish",
