@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-11-08T11:46:34.399Z",
-  "repos": {},
+  "generated_at": "2026-11-09T13:41:04.026Z",
+  "repos": {
+    "syalia-srl/beaver": {
+      "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
+      "lang": "Python",
+      "stars": 38,
+      "forks": 11
+    },
+    "gia-uh/argo": {
+      "desc": "Agent-based Reasoning, Governance, and Orchestration",
+      "lang": "Python",
+      "stars": 24,
+      "forks": 3
+    },
+    "gia-uh/autogoal": {
+      "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
+      "lang": "Python",
+      "stars": 215,
+      "forks": 66
+    },
+    "gia-uh/cecilia": {
+      "desc": "The Cuban Language Model",
+      "lang": "HTML",
+      "stars": 30,
+      "forks": 0
+    },
+    "gia-uh/lingo": {
+      "desc": "A Python library for context engineering.",
+      "lang": "Python",
+      "stars": 5,
+      "forks": 3
+    },
+    "apiad/codesmells": {
+      "desc": "",
+      "lang": "Python",
+      "stars": 0,
+      "forks": 0
+    },
+    "apiad/illiterate": {
+      "desc": "Unobtrusive literate programming experience for pragmatists",
+      "lang": "Rust",
+      "stars": 19,
+      "forks": 3
+    }
+  },
   "publications": [
     {
       "title": "Overview of TASS 2018: Opinions, Health and Emotions",
