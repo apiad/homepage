@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-11-15T12:33:26.960Z",
-  "repos": {},
+  "generated_at": "2026-11-16T13:25:11.374Z",
+  "repos": {
+    "syalia-srl/beaver": {
+      "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
+      "lang": "Python",
+      "stars": 38,
+      "forks": 11
+    },
+    "gia-uh/argo": {
+      "desc": "Agent-based Reasoning, Governance, and Orchestration",
+      "lang": "Python",
+      "stars": 24,
+      "forks": 3
+    },
+    "gia-uh/autogoal": {
+      "desc": "A Python framework for program synthesis with a focus on Automated Machine Learning.",
+      "lang": "Python",
+      "stars": 215,
+      "forks": 66
+    },
+    "gia-uh/cecilia": {
+      "desc": "The Cuban Language Model",
+      "lang": "HTML",
+      "stars": 30,
+      "forks": 0
+    },
+    "gia-uh/lingo": {
+      "desc": "A Python library for context engineering.",
+      "lang": "Python",
+      "stars": 5,
+      "forks": 3
+    },
+    "apiad/codesmells": {
+      "desc": "",
+      "lang": "Python",
+      "stars": 0,
+      "forks": 0
+    },
+    "apiad/illiterate": {
+      "desc": "Unobtrusive literate programming experience for pragmatists",
+      "lang": "Rust",
+      "stars": 19,
+      "forks": 3
+    }
+  },
   "publications": [
     {
       "title": "Overview of TASS 2018: Opinions, Health and Emotions",
@@ -85,7 +128,7 @@
     {
       "title": "Applying Human-in-the-Loop to construct a dataset for determining content reliability to combat fake news",
       "year": 2023,
-      "citations": 12,
+      "citations": 16,
       "authors": [
         "Alba Bonet-Jover",
         "Robiert Sepúlveda-Torres",
@@ -209,6 +252,20 @@
       "url": "https://doi.org/10.1016/j.jbi.2021.103716"
     },
     {
+      "title": "Analyzing the Interaction of Users with News Articles to Create Personalization Services",
+      "year": 2020,
+      "citations": 2,
+      "authors": [
+        "Alessandro Celi",
+        "Alejandro Piad-Morffis",
+        "Josval Díaz",
+        "Romina Eramo"
+      ],
+      "venue": "Communications in computer and information science",
+      "type": "conference paper",
+      "url": "https://doi.org/10.1007/978-3-030-52485-2_15"
+    },
+    {
       "title": "eHealth-KD v2",
       "year": 2020,
       "citations": 2,
@@ -235,20 +292,6 @@
       "venue": "Zenodo (CERN European Organization for Nuclear Research)",
       "type": "software",
       "url": "https://doi.org/10.5281/zenodo.3632228"
-    },
-    {
-      "title": "Analyzing the Interaction of Users with News Articles to Create Personalization Services",
-      "year": 2020,
-      "citations": 2,
-      "authors": [
-        "Alessandro Celi",
-        "Alejandro Piad-Morffis",
-        "Josval Díaz",
-        "Romina Eramo"
-      ],
-      "venue": "Communications in computer and information science",
-      "type": "conference paper",
-      "url": "https://doi.org/10.1007/978-3-030-52485-2_15"
     },
     {
       "title": "Knowledge Discovery in COVID-19 Research Literature",
