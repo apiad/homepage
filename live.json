@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T13:07:51.056Z",
+  "generated_at": "2026-11-23T15:44:56.958Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -83,6 +83,21 @@
       "url": "https://doi.org/10.1016/j.eswa.2020.114340"
     },
     {
+      "title": "Evolution strategies with thresheld convergence",
+      "year": 2015,
+      "citations": 26,
+      "authors": [
+        "Alejandro Piad-Morffis",
+        "Suilán Estévez-Velarde",
+        "Antonio Bolufé-Röhler",
+        "James Montgomery",
+        "Stephen Y. Chen"
+      ],
+      "venue": "IEEE Congress on Evolutionary Computation (CEC)",
+      "type": "conference paper",
+      "url": "https://doi.org/10.1109/cec.2015.7257143"
+    },
+    {
       "title": "A corpus to support eHealth Knowledge Discovery technologies",
       "year": 2019,
       "citations": 23,
@@ -94,21 +109,6 @@
       "venue": "Journal of Biomedical Informatics",
       "type": "article",
       "url": "https://doi.org/10.1016/j.jbi.2019.103172"
-    },
-    {
-      "title": "Evolution strategies with thresheld convergence",
-      "year": 2015,
-      "citations": 23,
-      "authors": [
-        "Alejandro Piad-Morffis",
-        "Suilán Estévez-Velarde",
-        "Antonio Bolufé-Röhler",
-        "James Montgomery",
-        "Stephen Y. Chen"
-      ],
-      "venue": "IEEE Congress on Evolutionary Computation (CEC)",
-      "type": "conference paper",
-      "url": "https://doi.org/10.1109/cec.2015.7257143"
     },
     {
       "title": "Differential evolution with thresheld convergence",
