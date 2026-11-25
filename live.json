@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T15:36:25.516Z",
+  "generated_at": "2026-11-25T15:21:02.894Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -46,9 +46,24 @@
   },
   "publications": [
     {
+      "title": "Exploiting discourse structure of traditional digital media to enhance automatic fake news detection",
+      "year": 2020,
+      "citations": 42,
+      "authors": [
+        "Alba Bonet-Jover",
+        "Alejandro Piad-Morffis",
+        "Estela Saquete",
+        "Patricio Martínez-Barco",
+        "Miguel Ángel García Cumbreras"
+      ],
+      "venue": "Expert Systems with Applications",
+      "type": "article",
+      "url": "https://doi.org/10.1016/j.eswa.2020.114340"
+    },
+    {
       "title": "Overview of TASS 2018: Opinions, Health and Emotions",
       "year": 2018,
-      "citations": 47,
+      "citations": 40,
       "authors": [
         "Eugenio Martínez‐Cámara",
         "Yudivián Almeida-Cruz",
@@ -68,24 +83,9 @@
       "url": "https://openalex.org/W2894315785"
     },
     {
-      "title": "Exploiting discourse structure of traditional digital media to enhance automatic fake news detection",
-      "year": 2020,
-      "citations": 42,
-      "authors": [
-        "Alba Bonet-Jover",
-        "Alejandro Piad-Morffis",
-        "Estela Saquete",
-        "Patricio Martínez-Barco",
-        "Miguel Ángel García Cumbreras"
-      ],
-      "venue": "Expert Systems with Applications",
-      "type": "article",
-      "url": "https://doi.org/10.1016/j.eswa.2020.114340"
-    },
-    {
       "title": "Evolution strategies with thresheld convergence",
       "year": 2015,
-      "citations": 26,
+      "citations": 25,
       "authors": [
         "Alejandro Piad-Morffis",
         "Suilán Estévez-Velarde",
@@ -128,7 +128,7 @@
     {
       "title": "Overview of the eHealth Knowledge Discovery Challenge at IberLEF 2019.",
       "year": 2019,
-      "citations": 20,
+      "citations": 19,
       "authors": [
         "Alejandro Piad-Morffis",
         "Yoan Gutiérrez",
@@ -161,7 +161,7 @@
     {
       "title": "Overview of the eHealth Knowledge Discovery Challenge at IberLEF 2021",
       "year": 2021,
-      "citations": 13,
+      "citations": 12,
       "authors": [
         "Alejandro Piad-Morffis",
         "Suilán Estévez-Velarde",
@@ -189,26 +189,9 @@
       "url": "https://doi.org/10.1016/j.jbi.2020.103517"
     },
     {
-      "title": "TASS 2018: The Strength of Deep Learning in Language Understanding Tasks",
-      "year": 2019,
-      "citations": 10,
-      "authors": [
-        "Manuel Carlos Díaz–Galiano",
-        "Miguel Ángel García Cumbreras",
-        "Manuel García-Vega",
-        "Yoan Gutiérrez",
-        "Eugenio Martínez‐Cámara",
-        "Alejandro Piad-Morffis",
-        "Julio Villena-Román"
-      ],
-      "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Científicas)",
-      "type": "article",
-      "url": "https://doi.org/10.26342/2019-62-9"
-    },
-    {
       "title": "A General-Purpose Annotation Model for Knowledge Discovery: Case Study in",
       "year": 2019,
-      "citations": 10,
+      "citations": 9,
       "authors": [
         "Alejandro Piad-Morffis",
         "Yoan Guitérrez",
@@ -235,6 +218,23 @@
       "venue": "International conference Recent advances in natural language processing",
       "type": "conference paper",
       "url": "https://doi.org/10.26615/978-954-452-072-4_026"
+    },
+    {
+      "title": "TASS 2018: The Strength of Deep Learning in Language Understanding Tasks",
+      "year": 2019,
+      "citations": 8,
+      "authors": [
+        "Manuel Carlos Díaz–Galiano",
+        "Miguel Ángel García Cumbreras",
+        "Manuel García-Vega",
+        "Yoan Gutiérrez",
+        "Eugenio Martínez‐Cámara",
+        "Alejandro Piad-Morffis",
+        "Julio Villena-Román"
+      ],
+      "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Científicas)",
+      "type": "article",
+      "url": "https://doi.org/10.26342/2019-62-9"
     },
     {
       "title": "How Mathematical Approaches Could Help Decision-Making to Epidemic Control? The Successful Experience against COVID-19 in Cuba",
@@ -327,20 +327,6 @@
       "url": "https://doi.org/10.5281/zenodo.3696791"
     },
     {
-      "title": "eHealth-KD 2020",
-      "year": 2020,
-      "citations": 2,
-      "authors": [
-        "Alejandro Piad-Morffis",
-        "Juan Pablo Consuegra‐Ayala",
-        "Yoan Gutiérrez",
-        "Suilán Estévez-Velarde"
-      ],
-      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
-      "type": "software",
-      "url": "https://doi.org/10.5281/zenodo.3632228"
-    },
-    {
       "title": "Knowledge Discovery in COVID-19 Research Literature",
       "year": 2020,
       "citations": 2,
@@ -372,6 +358,22 @@
       "venue": "",
       "type": "conference paper",
       "url": "https://doi.org/10.18653/v1/2020.coling-demos.4"
+    },
+    {
+      "title": "Demo Application for LETO: Learning Engine Through Ontologies",
+      "year": 2019,
+      "citations": 2,
+      "authors": [
+        "Suilán Estévez-Velarde",
+        "Andrés Montoyo",
+        "Yudivián Almeida-Cruz",
+        "Yoan Gutiérrez",
+        "Alejandro Piad-Morffis",
+        "Rafael Muñoz"
+      ],
+      "venue": "International conference Recent advances in natural language processing",
+      "type": "conference paper",
+      "url": "https://doi.org/10.26615/978-954-452-056-4_032"
     }
   ],
   "writing": []
