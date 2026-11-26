@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T15:21:02.894Z",
+  "generated_at": "2026-11-26T14:48:25.416Z",
   "repos": {
     "syalia-srl/beaver": {
       "desc": "All-in-one, pure-python, embedded database for relational data, documents, vectors, graphs, and events based on SQlite.",
@@ -48,7 +48,7 @@
     {
       "title": "Exploiting discourse structure of traditional digital media to enhance automatic fake news detection",
       "year": 2020,
-      "citations": 42,
+      "citations": 43,
       "authors": [
         "Alba Bonet-Jover",
         "Alejandro Piad-Morffis",
@@ -85,7 +85,7 @@
     {
       "title": "Evolution strategies with thresheld convergence",
       "year": 2015,
-      "citations": 25,
+      "citations": 26,
       "authors": [
         "Alejandro Piad-Morffis",
         "Suilán Estévez-Velarde",
@@ -128,7 +128,7 @@
     {
       "title": "Overview of the eHealth Knowledge Discovery Challenge at IberLEF 2019.",
       "year": 2019,
-      "citations": 19,
+      "citations": 20,
       "authors": [
         "Alejandro Piad-Morffis",
         "Yoan Gutiérrez",
@@ -145,7 +145,7 @@
     {
       "title": "Applying Human-in-the-Loop to construct a dataset for determining content reliability to combat fake news",
       "year": 2023,
-      "citations": 16,
+      "citations": 18,
       "authors": [
         "Alba Bonet-Jover",
         "Robiert Sepúlveda-Torres",
@@ -232,7 +232,7 @@
         "Alejandro Piad-Morffis",
         "Julio Villena-Román"
       ],
-      "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Científicas)",
+      "venue": "RUA, Repositorio Institucional de la Universidad de Alicante (Universidad de Alicante)",
       "type": "article",
       "url": "https://doi.org/10.26342/2019-62-9"
     },
